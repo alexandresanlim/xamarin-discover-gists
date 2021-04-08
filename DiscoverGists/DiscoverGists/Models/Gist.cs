@@ -31,9 +31,6 @@ namespace DiscoverGists.Models
         [JsonProperty("html_url")]
         public string HtmlUrl { get; set; }
 
-        //[JsonProperty("files")]
-        //public Files Files { get; set; }
-
         [JsonProperty("files")]
         public Dictionary<string, File> Files { get; set; }
 

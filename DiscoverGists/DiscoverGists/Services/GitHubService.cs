@@ -10,9 +10,9 @@ namespace DiscoverGists.Services
 {
     public class GitHubService : IGitHubService
     {
-        public async Task<List<Gist>> GetUser()
+        public async Task<List<Gist>> GetGistList(int page)
         {
-            string requestUrl = "https://api.github.com/gists/public?page=0";
+            string requestUrl = "https://api.github.com/gists/public?page=" + page;
 
             using (var client = new HttpClient())
             {

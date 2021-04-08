@@ -6,6 +6,6 @@ namespace DiscoverGists.Services.Interfaces
 {
     public interface IGitHubService
     {
-        Task<List<Gist>> GetUser();
+        Task<List<Gist>> GetGistList(int page);
     }
 }

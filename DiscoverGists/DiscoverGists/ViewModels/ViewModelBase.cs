@@ -18,6 +18,13 @@ namespace DiscoverGists.ViewModels
             set { SetProperty(ref _title, value); }
         }
 
+        private bool _isBusy;
+        public bool IsBusy
+        {
+            set => SetProperty(ref _isBusy, value);
+            get => _isBusy;
+        }
+
         public ViewModelBase(INavigationService navigationService)
         {
             NavigationService = navigationService;

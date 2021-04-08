@@ -1,7 +1,11 @@
-﻿using DiscoverGists.Services;
+﻿using DiscoverGists.Extentions;
+using DiscoverGists.Models;
+using DiscoverGists.Services;
 using DiscoverGists.Services.Interfaces;
+using Prism.Commands;
 using Prism.Navigation;
 using System;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -22,7 +26,7 @@ namespace DiscoverGists.ViewModels
             LoadDataCommand.Execute(null);
         }
 
-        public ICommand LoadDataCommand => new Command(async () =>
+        public ICommand LoadDataCommand => new DelegateCommand(async () =>
         {
             await LoadData();
         });
@@ -31,12 +35,27 @@ namespace DiscoverGists.ViewModels
         {
             try
             {
-                var octocat = await _gitHubService.GetUser();
+                IsBusy = true;
+
+                var gistList = await _gitHubService.GetGistList(page: 1);
+
+                GistList = gistList.ToObservableCollection();
             }
             catch (Exception e)
             {
 
             }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
+        private ObservableCollection<Gist> _gistList;
+        public ObservableCollection<Gist> GistList
+        {
+            set => SetProperty(ref _gistList, value);
+            get => _gistList;
         }
     }
 }
