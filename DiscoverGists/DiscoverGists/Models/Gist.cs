@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace DiscoverGists.Models
@@ -60,5 +61,29 @@ namespace DiscoverGists.Models
 
         [JsonProperty("truncated")]
         public bool Truncated { get; set; }
+
+        [JsonIgnore]
+        public string FilesPresentation
+        {
+            get
+            {
+                var presentationReturn = "";
+
+                if (Files == null || Files.Count.Equals(0))
+                    return presentationReturn;
+
+                var item = Files.FirstOrDefault();
+
+                //foreach (var item in Files)
+                //{
+                presentationReturn += "Type: " + item.Value.Type + " \nName: " + item.Value.Filename + " \nSize: " + item.Value.Size + " \nLanguage: " + item.Value.Language + "\n";
+                //}
+
+                if (Files.Count > 1)
+                    presentationReturn += "More " + Files.Count + " found";
+
+                return presentationReturn;
+            }
+        }
     }
 }

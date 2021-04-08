@@ -7,14 +7,41 @@
     <RefreshView IsRefreshing="{Binding IsBusy}" Command="{Binding LoadDataCommand}">
         <controls:CustomCollectionView ItemsSource="{Binding GistList}">
             <controls:CustomCollectionView.ItemsLayout>
-                <LinearItemsLayout Orientation="Vertical" ItemSpacing="10" />
+                <LinearItemsLayout Orientation="Vertical" />
             </controls:CustomCollectionView.ItemsLayout>
             <controls:CustomCollectionView.ItemTemplate>
                 <DataTemplate>
-                    
-                        <Frame BackgroundColor="LightGray">
-                            <Label Text="{Binding Url}"/>
+
+                    <StackLayout Padding="5">
+                        <Frame BackgroundColor="LightGray" CornerRadius="10" Padding="0">
+                            <StackLayout Orientation="Horizontal">
+                                <BoxView Grid.Column="0" BackgroundColor="Green" WidthRequest="15"/>
+
+
+                                <Grid ColumnDefinitions="auto,*" ColumnSpacing="15" Padding="10">
+                                    
+                                   
+                                        <Frame Grid.Column="0" Padding="0"
+                                       BorderColor="Black"
+                                        CornerRadius="50"
+                                        HeightRequest="60"
+                                        WidthRequest="60"
+                                        IsClippedToBounds="True"
+                                        HorizontalOptions="Center"
+                                        VerticalOptions="Start"
+                                       >
+                                            <Image Source="{Binding Owner.AvatarUrl}" WidthRequest="100" HeightRequest="100" />
+                                        </Frame>
+
+                                        <StackLayout Grid.Column="1">
+                                            <Label Text="{Binding Owner.Login}" FontSize="Subtitle" FontAttributes="Bold"/>
+                                            <Label Text="{Binding FilesPresentation}"/>
+                                        </StackLayout>
+                                   
+                                </Grid>
+                            </StackLayout>
                         </Frame>
+                    </StackLayout>
                     
                 </DataTemplate>
             </controls:CustomCollectionView.ItemTemplate>
