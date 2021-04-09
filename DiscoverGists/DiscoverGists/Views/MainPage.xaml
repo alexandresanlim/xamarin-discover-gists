@@ -1,53 +1,104 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:controls="clr-namespace:DiscoverGists.Controls"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:controls="clr-namespace:DiscoverGists.Controls"
              x:Class="DiscoverGists.Views.MainPage"
-             Title="{Binding Title}">
+             xmlns:icons="clr-namespace:DiscoverGists.Helpers.Icon"
+             NavigationPage.HasNavigationBar="False">
 
-    <RefreshView IsRefreshing="{Binding IsBusy}" Command="{Binding LoadDataCommand}">
-        <controls:CustomCollectionView ItemsSource="{Binding GistList}">
-            <controls:CustomCollectionView.ItemsLayout>
-                <LinearItemsLayout Orientation="Vertical" />
-            </controls:CustomCollectionView.ItemsLayout>
-            <controls:CustomCollectionView.ItemTemplate>
-                <DataTemplate>
+    <Grid RowDefinitions="*, auto">
 
-                    <StackLayout Padding="5">
-                        <Frame BackgroundColor="LightGray" CornerRadius="10" Padding="0">
-                            <StackLayout Orientation="Horizontal">
-                                <BoxView Grid.Column="0" BackgroundColor="Green" WidthRequest="15"/>
+        <RefreshView Grid.Row="0" IsRefreshing="{Binding IsBusy}" Command="{Binding LoadDataCommand}">
+            <controls:CustomCollectionView ItemsSource="{Binding GistList}">
+                <controls:CustomCollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical" />
+                </controls:CustomCollectionView.ItemsLayout>
+                <controls:CustomCollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <SwipeView>
+                            <SwipeView.LeftItems>
+                                <SwipeItems>
+                                    <SwipeItem Text="Favorite"
+                                               IconImageSource="favorite.png"
+                                               BackgroundColor="LightGreen"
+                                               Command="{Binding AddFavoriteCommand}"
+                                               />
+
+                                </SwipeItems>
+                            </SwipeView.LeftItems>
+                            <!-- Content -->
+
+                            <StackLayout Padding="5">
+                                <Frame BackgroundColor="LightGray" CornerRadius="10" Padding="0">
+                                    <StackLayout Orientation="Horizontal">
+                                        <BoxView Grid.Column="0" BackgroundColor="Green" WidthRequest="15"/>
 
 
-                                <Grid ColumnDefinitions="auto,*" ColumnSpacing="15" Padding="10">
-                                    
-                                   
-                                        <Frame Grid.Column="0" Padding="0"
-                                       BorderColor="Black"
-                                        CornerRadius="50"
-                                        HeightRequest="60"
-                                        WidthRequest="60"
-                                        IsClippedToBounds="True"
-                                        HorizontalOptions="Center"
-                                        VerticalOptions="Start"
-                                       >
-                                            <Image Source="{Binding Owner.AvatarUrl}" WidthRequest="100" HeightRequest="100" />
-                                        </Frame>
+                                        <Grid ColumnDefinitions="auto,*" ColumnSpacing="15" Padding="10">
 
-                                        <StackLayout Grid.Column="1">
-                                            <Label Text="{Binding Owner.Login}" FontSize="Subtitle" FontAttributes="Bold"/>
-                                            <Label Text="{Binding FilesPresentation}"/>
-                                        </StackLayout>
-                                   
-                                </Grid>
+
+                                            <Frame Grid.Column="0" Padding="0"
+                                                   BorderColor="Black"
+                                                    CornerRadius="50"
+                                                    HeightRequest="60"
+                                                    WidthRequest="60"
+                                                    IsClippedToBounds="True"
+                                                    HorizontalOptions="Center"
+                                                    VerticalOptions="Start"
+                                                   >
+                                                <Image Source="{Binding Owner.AvatarUrl}" WidthRequest="100" HeightRequest="100" />
+                                            </Frame>
+
+                                            <StackLayout Grid.Column="1">
+                                                <Label Text="{Binding Owner.Login}" FontSize="Subtitle" FontAttributes="Bold"/>
+                                                <Label Text="{Binding FilesPresentation}"/>
+                                            </StackLayout>
+
+                                        </Grid>
+                                    </StackLayout>
+                                </Frame>
                             </StackLayout>
-                        </Frame>
-                    </StackLayout>
-                    
-                </DataTemplate>
-            </controls:CustomCollectionView.ItemTemplate>
-        </controls:CustomCollectionView>
+                        </SwipeView>
 
-    </RefreshView>
+
+
+
+
+                    </DataTemplate>
+                </controls:CustomCollectionView.ItemTemplate>
+            </controls:CustomCollectionView>
+
+        </RefreshView>
+
+        <!--Menu-->
+        <Frame Grid.Row="1" Margin="10" Padding="0" BackgroundColor="{DynamicResource secondary}" BorderColor="{DynamicResource secondaryDark}" CornerRadius="30" HasShadow="False">
+            <Grid ColumnDefinitions="*,auto,auto,auto,*">
+                <StackLayout Grid.Column="1" Padding="15,10">
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding NavigateToFavoriteCommand}" />
+                    </StackLayout.GestureRecognizers>
+                    <controls:CustomIcon Glyph="{x:Static icons:FontAwesomeSolid.Star }" IconSize="Medium" IconColor="{DynamicResource textOnSecondary}" />
+                    <Label Text="Favorites" FontAttributes="Bold" FontSize="Micro" TextColor="{DynamicResource textOnSecondary}" />
+                </StackLayout>
+                <StackLayout Grid.Column="2" Padding="15,10">
+                    <!--<StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                    </StackLayout.GestureRecognizers>-->
+                    <controls:CustomIcon Glyph="{x:Static icons:FontAwesomeSolid.PaintBrush }" IconSize="Medium" IconColor="{DynamicResource textOnSecondary}" />
+                    <Label Text="Theme" FontAttributes="Bold" FontSize="Micro" TextColor="{DynamicResource textOnSecondary}" />
+                </StackLayout>
+                <!--<StackLayout Grid.Column="3" Padding="15,10">
+                    -->
+                <!--<StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding OpenAppInStoreCommand}" />
+                    </StackLayout.GestureRecognizers>-->
+                <!--
+                    <controls:CustomIcon Glyph="{x:Static icons:FontAwesomeSolid.Star }" IconSize="Medium" IconColor="{DynamicResource textOnSecondary}" />
+                    <Label Text="Rate" FontAttributes="Bold" FontSize="Micro" TextColor="{DynamicResource textOnSecondary}" />
+                </StackLayout>-->
+            </Grid>
+        </Frame>
+    </Grid>
 
 
 </ContentPage>

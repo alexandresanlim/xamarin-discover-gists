@@ -2,6 +2,7 @@
 using DiscoverGists.Models;
 using DiscoverGists.Services;
 using DiscoverGists.Services.Interfaces;
+using DiscoverGists.Views;
 using Prism.Commands;
 using Prism.Navigation;
 using System;
@@ -50,6 +51,16 @@ namespace DiscoverGists.ViewModels
                 IsBusy = false;
             }
         }
+
+        public ICommand NavigateToFavoriteCommand => new DelegateCommand(async () =>
+        {
+            await NavigationService.NavigateAsync(nameof(FavoritePage));
+        });
+
+        public ICommand AddFavoriteCommand => new DelegateCommand(async () =>
+        {
+
+        });
 
         private ObservableCollection<Gist> _gistList;
         public ObservableCollection<Gist> GistList
