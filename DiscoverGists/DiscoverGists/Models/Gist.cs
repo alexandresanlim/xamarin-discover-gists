@@ -1,8 +1,10 @@
-﻿using Newtonsoft.Json;
+﻿using LiteDB;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Xamarin.Forms;
 
 namespace DiscoverGists.Models
 {
@@ -17,7 +19,7 @@ namespace DiscoverGists.Models
         [JsonProperty("commits_url")]
         public string CommitsUrl { get; set; }
 
-        [JsonProperty("id")]
+        [JsonProperty("id"), BsonId]
         public string Id { get; set; }
 
         [JsonProperty("node_id")]
@@ -62,7 +64,7 @@ namespace DiscoverGists.Models
         [JsonProperty("truncated")]
         public bool Truncated { get; set; }
 
-        [JsonIgnore]
+        [JsonIgnore, BsonIgnore]
         public string FilesPresentation
         {
             get
@@ -85,5 +87,10 @@ namespace DiscoverGists.Models
                 return presentationReturn;
             }
         }
+
+        public KeyValuePair<string, File> FirstFile => Files.FirstOrDefault();
+
+        [JsonIgnore]
+        public string ColorFromLanguage { get; set; }
     }
 }

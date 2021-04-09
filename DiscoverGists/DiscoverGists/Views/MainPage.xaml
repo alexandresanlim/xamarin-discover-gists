@@ -4,9 +4,10 @@
              xmlns:controls="clr-namespace:DiscoverGists.Controls"
              x:Class="DiscoverGists.Views.MainPage"
              xmlns:icons="clr-namespace:DiscoverGists.Helpers.Icon"
+             xmlns:vm="clr-namespace:DiscoverGists.ViewModels" 
              NavigationPage.HasNavigationBar="False">
 
-    <Grid RowDefinitions="*, auto">
+    <Grid RowDefinitions="*, auto" RowSpacing="0">
 
         <RefreshView Grid.Row="0" IsRefreshing="{Binding IsBusy}" Command="{Binding LoadDataCommand}">
             <controls:CustomCollectionView ItemsSource="{Binding GistList}">
@@ -21,7 +22,8 @@
                                     <SwipeItem Text="Favorite"
                                                IconImageSource="favorite.png"
                                                BackgroundColor="LightGreen"
-                                               Command="{Binding AddFavoriteCommand}"
+                                               Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainPageViewModel}}, Path=AddFavoriteCommand}"
+                                               CommandParameter="{Binding .}"
                                                />
 
                                 </SwipeItems>
@@ -29,9 +31,15 @@
                             <!-- Content -->
 
                             <StackLayout Padding="5">
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainPageViewModel}}, Path=NavigateToDetailCommand}"
+                                                                      CommandParameter="{Binding .}"
+                                                                      />
+                                </StackLayout.GestureRecognizers>
+
                                 <Frame BackgroundColor="LightGray" CornerRadius="10" Padding="0">
                                     <StackLayout Orientation="Horizontal">
-                                        <BoxView Grid.Column="0" BackgroundColor="Green" WidthRequest="15"/>
+                                        <BoxView Grid.Column="0" BackgroundColor="{Binding ColorFromLanguage}" WidthRequest="15"/>
 
 
                                         <Grid ColumnDefinitions="auto,*" ColumnSpacing="15" Padding="10">
@@ -71,7 +79,7 @@
         </RefreshView>
 
         <!--Menu-->
-        <Frame Grid.Row="1" Margin="10" Padding="0" BackgroundColor="{DynamicResource secondary}" BorderColor="{DynamicResource secondaryDark}" CornerRadius="30" HasShadow="False">
+        <Frame Grid.Row="1" Margin="10,0,10,10" Padding="0" BackgroundColor="{DynamicResource secondary}" BorderColor="{DynamicResource secondaryDark}" CornerRadius="30" HasShadow="False">
             <Grid ColumnDefinitions="*,auto,auto,auto,*">
                 <StackLayout Grid.Column="1" Padding="15,10">
                     <StackLayout.GestureRecognizers>

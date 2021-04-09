@@ -1,12 +1,17 @@
-﻿using DiscoverGists.Extentions;
+﻿using DiscoverGists.DataBase;
+using DiscoverGists.Extentions;
 using DiscoverGists.Models;
 using DiscoverGists.Services;
 using DiscoverGists.Services.Interfaces;
 using DiscoverGists.Views;
+using Newtonsoft.Json;
 using Prism.Commands;
 using Prism.Navigation;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
+using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -38,13 +43,15 @@ namespace DiscoverGists.ViewModels
             {
                 IsBusy = true;
 
+                var a = LanguageColors.GetList();
+
                 var gistList = await _gitHubService.GetGistList(page: 1);
 
                 GistList = gistList.ToObservableCollection();
             }
             catch (Exception e)
             {
-
+                //msgerro
             }
             finally
             {
@@ -57,9 +64,21 @@ namespace DiscoverGists.ViewModels
             await NavigationService.NavigateAsync(nameof(FavoritePage));
         });
 
-        public ICommand AddFavoriteCommand => new DelegateCommand(async () =>
+        public DelegateCommand<Gist> NavigateToDetailCommand => new DelegateCommand<Gist>(async (gist) =>
         {
+            var navigationParams = new NavigationParameters
+            {
+                { "gist", gist }
+            };
 
+            await NavigationService.NavigateAsync(nameof(DetailPage), navigationParams);
+        });
+
+        public DelegateCommand<Gist> AddFavoriteCommand => new DelegateCommand<Gist>((gist) =>
+        {
+            GistDataBase.UpInsert(gist);
+
+            //msgaddcomsucesso
         });
 
         private ObservableCollection<Gist> _gistList;

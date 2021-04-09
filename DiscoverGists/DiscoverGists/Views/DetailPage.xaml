@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="http://prismlibrary.com"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="DiscoverGists.Views.DetailPage">
+
+    <Frame BackgroundColor="LightGray" CornerRadius="10" Padding="0">
+        <StackLayout Orientation="Horizontal">
+            <BoxView Grid.Column="0" BackgroundColor="Green" WidthRequest="15"/>
+
+
+            <Grid ColumnDefinitions="auto,*" ColumnSpacing="15" Padding="10">
+
+
+                <Frame Grid.Column="0" Padding="0"
+                                                   BorderColor="Black"
+                                                    CornerRadius="50"
+                                                    HeightRequest="60"
+                                                    WidthRequest="60"
+                                                    IsClippedToBounds="True"
+                                                    HorizontalOptions="Center"
+                                                    VerticalOptions="Start"
+                                                   >
+                    <Image Source="{Binding Gist.Owner.AvatarUrl}" WidthRequest="100" HeightRequest="100" />
+                </Frame>
+
+                <StackLayout Grid.Column="1">
+                    <Label Text="{Binding Gist.Owner.Login}" FontSize="Subtitle" FontAttributes="Bold"/>
+                    <Label Text="{Binding Gist.FilesPresentation}"/>
+                </StackLayout>
+
+            </Grid>
+        </StackLayout>
+    </Frame>
+
+</ContentPage>

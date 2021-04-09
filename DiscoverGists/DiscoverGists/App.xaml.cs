@@ -32,6 +32,7 @@ namespace DiscoverGists
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
             containerRegistry.RegisterForNavigation<FavoritePage, FavoritePageViewModel>();
+            containerRegistry.RegisterForNavigation<DetailPage, DetailPageViewModel>();
         }
     }
 }

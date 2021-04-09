@@ -1,12 +1,29 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:prism="http://prismlibrary.com"
+             xmlns:prism="http://prismlibrary.com" xmlns:controls="clr-namespace:DiscoverGists.Controls"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="DiscoverGists.Views.FavoritePage">
 
-    <StackLayout>
-        <Label Text="Hello favorite!"/>
-    </StackLayout>
+    <RefreshView IsRefreshing="{Binding IsBusy}">
+        <controls:CustomCollectionView ItemsSource="{Binding GistList}">
+            <controls:CustomCollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical" />
+            </controls:CustomCollectionView.ItemsLayout>
+            <controls:CustomCollectionView.ItemTemplate>
+                <DataTemplate>
+
+                    <Frame BackgroundColor="LightGray" CornerRadius="10" Padding="0">
+                        <StackLayout>
+                            <Label Text="{Binding Owner.Login}" FontSize="Subtitle" FontAttributes="Bold"/>
+                            <Label Text="{Binding FilesPresentation}"/>
+                        </StackLayout>
+                    </Frame>
+
+                </DataTemplate>
+            </controls:CustomCollectionView.ItemTemplate>
+        </controls:CustomCollectionView>
+
+    </RefreshView>
 
 </ContentPage>
