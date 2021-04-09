@@ -79,7 +79,7 @@
         </RefreshView>
 
         <!--Menu-->
-        <Frame Grid.Row="1" Margin="10,0,10,10" Padding="0" BackgroundColor="{DynamicResource secondary}" BorderColor="{DynamicResource secondaryDark}" CornerRadius="30" HasShadow="False">
+        <Frame Grid.Row="1" Margin="5,0,5,5" Padding="0" BackgroundColor="{DynamicResource secondary}" CornerRadius="30" HasShadow="False">
             <Grid ColumnDefinitions="*,auto,auto,auto,*">
                 <StackLayout Grid.Column="1" Padding="15,10">
                     <StackLayout.GestureRecognizers>

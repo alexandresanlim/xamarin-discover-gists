@@ -9,9 +9,9 @@
         <Color x:Key="primaryLight">#2c2c2c</Color>
         <Color x:Key="primaryDark">#000000</Color>
 
-        <Color x:Key="secondary">#6200ee</Color>
-        <Color x:Key="secondaryLight">#9e47ff</Color>
-        <Color x:Key="secondaryDark">#0400ba</Color>
+        <Color x:Key="secondary">#16a085</Color>
+        <Color x:Key="secondaryLight">#5ad2b5</Color>
+        <Color x:Key="secondaryDark">#007158</Color>
 
         <Color x:Key="textOnPrimary">#ffffff</Color>
         <Color x:Key="textOnSecondary">#ffffff</Color>

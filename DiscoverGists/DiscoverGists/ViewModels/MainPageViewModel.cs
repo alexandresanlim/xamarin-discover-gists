@@ -57,7 +57,7 @@ namespace DiscoverGists.ViewModels
             }
             catch (Exception e)
             {
-                //msgerro
+                DialogService.Toast("Ops! Something wrong has happened");
             }
             finally
             {
@@ -84,7 +84,7 @@ namespace DiscoverGists.ViewModels
         {
             GistDataBase.UpInsert(gist);
 
-            //msgaddcomsucesso
+            DialogService.Toast("Success!");
         });
 
         private ObservableCollection<Gist> _gistList;
