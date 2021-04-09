@@ -210,7 +210,7 @@ public class LanguageColors
               {language:'cpp', color: '#f34b7d'},
               {language:'AGS Script', color: '#B9D9FF'},
               {language:'Dogescript', color: '#cca760'},
-              {language:'nesC', color: '#94B0C7'}
+              {language:'nesC', color: '#94B0C7'},{language:'Text', color: '#8e44ad'},{language:'Markdown', color: '#2c3e50'},{language:'XML', color: '#d35400'},{language:'Json', color: '#f39c12'},{language:'C#', color: '#178600'}
             ]";
 
         var gists = JsonConvert.DeserializeObject<List<LanguageColors>>(json);

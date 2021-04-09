@@ -78,7 +78,7 @@ namespace DiscoverGists.Models
 
                 //foreach (var item in Files)
                 //{
-                presentationReturn += "Type: " + item.Value.Type + " \nName: " + item.Value.Filename + " \nSize: " + item.Value.Size + " \nLanguage: " + item.Value.Language + "\n";
+                presentationReturn += "Type: " + item.Value.Type + " \nName: " + item.Value.Filename + " \nSize: " + item.Value.Size + " \nLanguage: " + (!string.IsNullOrEmpty(item.Value?.Language) ? item.Value?.Language : "Not found") + "\n";
                 //}
 
                 if (Files.Count > 1)

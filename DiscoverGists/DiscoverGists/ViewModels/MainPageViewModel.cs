@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -43,11 +44,16 @@ namespace DiscoverGists.ViewModels
             {
                 IsBusy = true;
 
-                var a = LanguageColors.GetList();
-
                 var gistList = await _gitHubService.GetGistList(page: 1);
 
                 GistList = gistList.ToObservableCollection();
+
+                var languageColors = LanguageColors.GetList();
+
+                foreach (var item in GistList)
+                {
+                    item.ColorFromLanguage = languageColors?.FirstOrDefault(x => x.Language?.ToLower() == item?.FirstFile.Value?.Language?.ToLower())?.Color ?? "#2980b9";
+                }
             }
             catch (Exception e)
             {
