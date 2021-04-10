@@ -25,6 +25,9 @@ namespace DiscoverGists
             App.SetThemeColorsByPreference();
 
             await NavigationService.NavigateAsync("NavigationPage/MainPage");
+
+            var navigationPage = Application.Current.MainPage as NavigationPage;
+            navigationPage.BarBackgroundColor = App.ThemeColors.Secondary;
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)

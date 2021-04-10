@@ -27,6 +27,9 @@ namespace DiscoverGists.DataBase
         {
             try
             {
+                DateTime now = DateTime.Now;
+                item.AddedFavorite = now;
+
                 return ItemCollection.Upsert(item);
             }
             catch (Exception)

@@ -64,6 +64,9 @@ namespace DiscoverGists.Models
         [JsonProperty("truncated")]
         public bool Truncated { get; set; }
 
+        [JsonIgnore]
+        public DateTime AddedFavorite { get; set; }
+
         [JsonIgnore, BsonIgnore]
         public File FirstFile => Files?.Select(x => x.Value)?.FirstOrDefault() ?? new File();
 
@@ -87,5 +90,8 @@ namespace DiscoverGists.Models
                 return presentationReturn;
             }
         }
+
+        [JsonIgnore, BsonIgnore]
+        public string AddedFavoritePresentation => AddedFavorite.ToString("dd MMM yy");
     }
 }

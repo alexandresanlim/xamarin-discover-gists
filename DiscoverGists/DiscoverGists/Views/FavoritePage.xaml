@@ -3,27 +3,124 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="http://prismlibrary.com" xmlns:controls="clr-namespace:DiscoverGists.Controls"
              prism:ViewModelLocator.AutowireViewModel="True"
-             x:Class="DiscoverGists.Views.FavoritePage">
+             x:Class="DiscoverGists.Views.FavoritePage"
+             xmlns:icons="clr-namespace:DiscoverGists.Helpers.Icon" xmlns:local="clr-namespace:DiscoverGists.Converters"
+             BackgroundColor="{DynamicResource secondaryDark}"
+             xmlns:vm="clr-namespace:DiscoverGists.ViewModels"
+             >
 
-    <RefreshView IsRefreshing="{Binding IsBusy}">
-        <controls:CustomCollectionView ItemsSource="{Binding GistList}">
-            <controls:CustomCollectionView.ItemsLayout>
-                <LinearItemsLayout Orientation="Vertical" />
-            </controls:CustomCollectionView.ItemsLayout>
-            <controls:CustomCollectionView.ItemTemplate>
-                <DataTemplate>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:InvertedBooleanConverter x:Key="InvertedBooleanConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
-                    <Frame BackgroundColor="LightGray" CornerRadius="10" Padding="0">
-                        <StackLayout>
-                            <Label Text="{Binding Owner.Login}" FontSize="Subtitle" FontAttributes="Bold"/>
-                            <Label Text="{Binding FilesPresentation}"/>
-                        </StackLayout>
-                    </Frame>
+    <Grid RowDefinitions="auto, *" RowSpacing="0">
 
-                </DataTemplate>
-            </controls:CustomCollectionView.ItemTemplate>
-        </controls:CustomCollectionView>
+        <StackLayout Grid.Row="0" Padding="25,0,25,25">
 
-    </RefreshView>
+            <StackLayout.Background>
+                <LinearGradientBrush EndPoint="0,1">
+                    <GradientStop Color="{DynamicResource secondary}"
+                          Offset="0.1" />
+                    <GradientStop Color="{DynamicResource secondaryDark}"
+                          Offset="1.0" />
+                </LinearGradientBrush>
+            </StackLayout.Background>
+
+            <Grid ColumnDefinitions="*,auto" IsVisible="{Binding SearchPanelVisible, Converter={StaticResource InvertedBooleanConverter}}">
+                <Label Grid.Column="0" Text="Your Favorites" TextColor="{DynamicResource textOnSecondary}" Style="{StaticResource titleStyle}"/>
+                <StackLayout Grid.Column="1" VerticalOptions="Center" Padding="15,10,0,10">
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ShowSearchPanelCommand}"/>
+                    </StackLayout.GestureRecognizers>
+                    <controls:CustomIcon Glyph="{x:Static icons:FontAwesomeSolid.Search }" IconSize="Title" IconColor="{DynamicResource textOnSecondary}" />
+                </StackLayout>
+            </Grid>
+
+            <StackLayout IsVisible="{Binding SearchPanelVisible}" PropertyChanged="StackLayout_PropertyChanged">
+                <Grid ColumnDefinitions="*,auto">
+                    <Label Grid.Column="0" Text="Enter name to find: " Style="{StaticResource subTitleStyle}" TextColor="{DynamicResource textOnSecondary}" />
+                    <StackLayout Grid.Column="1" Padding="15,0,0,0">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ShowSearchPanelCommand}"/>
+                        </StackLayout.GestureRecognizers>
+                        <controls:CustomIcon Glyph="{x:Static icons:FontAwesomeSolid.Times }" IconSize="Title" IconColor="{DynamicResource textOnSecondary}" VerticalOptions="CenterAndExpand" />
+                    </StackLayout>
+                </Grid>
+
+                <Frame BackgroundColor="#30000000" Padding="25,10" CornerRadius="35">
+                    <Entry x:Name="entrySearch" Placeholder="Type here" TextColor="{DynamicResource textOnSecondary}" TextChanged="entrySearch_TextChanged" />
+                </Frame>
+            </StackLayout>
+
+        </StackLayout>
+
+        <controls:CustomFrame Grid.Row="1" BackgroundColor="{DynamicResource primary}" CornerRadius="35,0,0,0">
+
+            <RefreshView IsRefreshing="{Binding IsBusy}">
+                <controls:CustomCollectionView ItemsSource="{Binding GistList}" Margin="15,25,0,25">
+                    <controls:CustomCollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Horizontal" />
+                    </controls:CustomCollectionView.ItemsLayout>
+                    <controls:CustomCollectionView.ItemTemplate>
+                        <DataTemplate>
+
+                            <StackLayout Padding="0,0,10,0">
+
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:FavoritePageViewModel}}, Path=NavigateToDetailCommand}" CommandParameter="{Binding .}" />
+                                </StackLayout.GestureRecognizers>
+
+                                <Frame BackgroundColor="{DynamicResource primaryLight}" CornerRadius="10" Padding="0,5,0,25" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" WidthRequest="250">
+                                    <Grid RowDefinitions="auto,auto,*" VerticalOptions="FillAndExpand" RowSpacing="0">
+                                        <StackLayout Grid.Row="0" HorizontalOptions="End" Padding="15,10">
+                                            <StackLayout.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:FavoritePageViewModel}}, Path=RemoveFromFavoriteCommand}" CommandParameter="{Binding .}"/>
+                                            </StackLayout.GestureRecognizers>
+                                            <controls:CustomIcon Glyph="{x:Static icons:FontAwesomeSolid.Times }" IconSize="Medium" IconColor="{DynamicResource textOnSecondary}" />
+                                        </StackLayout>
+
+                                        <StackLayout Grid.Row="1" Padding="15,0,0,15" Orientation="Horizontal" Spacing="15" VerticalOptions="FillAndExpand">
+
+                                            <Frame Grid.Column="0" Padding="0" BorderColor="Black" CornerRadius="50" HeightRequest="50" WidthRequest="50" IsClippedToBounds="True" HorizontalOptions="Center" VerticalOptions="Start">
+                                                <Image Source="{Binding Owner.AvatarUrl}" WidthRequest="90" HeightRequest="90" />
+                                            </Frame>
+
+                                            <Label Text="{Binding Owner.Login}" FontSize="Subtitle" TextColor="{DynamicResource textOnPrimary}" Style="{StaticResource subTitleStyle}" VerticalOptions="Center" />
+
+                                        </StackLayout>
+
+                                        <Grid Grid.Row="2" ColumnDefinitions="auto,*" Padding="15" ColumnSpacing="15" VerticalOptions="FillAndExpand">
+
+                                            <BoxView Grid.Column="0" BackgroundColor="{Binding FirstFile.ColorFromLanguage}" WidthRequest="10"/>
+
+                                            <StackLayout Grid.Column="1" VerticalOptions="FillAndExpand">
+                                                <Label Text="{Binding FilesPresentation}" TextColor="{DynamicResource textOnPrimary}"/>
+
+                                                <Frame BackgroundColor="#30000000" CornerRadius="30" Padding="30,10" VerticalOptions="EndAndExpand" HorizontalOptions="Start">
+                                                    <Label Text="{Binding AddedFavoritePresentation, StringFormat='Added: {0}'}" TextColor="{DynamicResource textOnPrimary}" Style="{StaticResource fontSemiBold}"/>
+                                                </Frame>
+
+                                            </StackLayout>
+
+                                        </Grid>
+                                    </Grid>
+                                </Frame>
+                                
+                            </StackLayout>
+
+                        </DataTemplate>
+                    </controls:CustomCollectionView.ItemTemplate>
+                </controls:CustomCollectionView>
+
+            </RefreshView>
+        </controls:CustomFrame>
+
+
+    </Grid>
+
+
+
 
 </ContentPage>
