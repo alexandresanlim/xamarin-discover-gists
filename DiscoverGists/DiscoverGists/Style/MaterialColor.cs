@@ -47,7 +47,7 @@ namespace DiscoverGists.Style
             {
                 Primary = Color.FromHex("#000000"),
                 PrimaryDark = Color.FromHex("#2c2c2c"),
-                PrimaryLight = Color.FromHex("#000000"),
+                PrimaryLight = Color.FromHex("#2c2c2c"),
 
                 TextOnPrimary = Color.FromHex("#ffffff"),
             };
@@ -59,7 +59,7 @@ namespace DiscoverGists.Style
             {
                 Primary = Color.FromHex("#ffffff"),
                 PrimaryDark = Color.FromHex("#cccccc"),
-                PrimaryLight = Color.FromHex("#ffffff"),
+                PrimaryLight = Color.FromHex("#ecf0f1"),
 
                 TextOnPrimary = Color.FromHex("#212121"),
             };

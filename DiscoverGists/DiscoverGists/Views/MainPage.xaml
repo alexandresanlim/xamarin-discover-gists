@@ -62,7 +62,7 @@
                                                                       />
                                             </StackLayout.GestureRecognizers>
 
-                                            <Frame BackgroundColor="{DynamicResource primary}" CornerRadius="10" Padding="0">
+                                            <Frame BackgroundColor="{DynamicResource primaryLight}" CornerRadius="10" Padding="0">
                                                 <StackLayout Orientation="Horizontal">
                                                     <BoxView Grid.Column="0" BackgroundColor="{Binding ColorFromLanguage}" WidthRequest="15"/>
 
