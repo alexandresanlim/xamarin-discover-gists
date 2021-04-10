@@ -70,6 +70,53 @@ namespace DiscoverGists.ViewModels
             await NavigationService.NavigateAsync(nameof(FavoritePage));
         });
 
+        public ICommand SettingsCommand => new Command(async () =>
+        {
+            var preferences = new List<Acr.UserDialogs.ActionSheetOption>
+            {
+                new Acr.UserDialogs.ActionSheetOption(PreferenceService.Theme == "light" ? "Dark Mode" : "Light Mode", () =>
+                {
+                    PreferenceService.Theme = PreferenceService.Theme == "light" ? "dark" : "light";
+                    App.SetThemeColorsByPreference();
+                })
+            };
+
+
+
+            //PreferenceService.Theme = PreferenceService.Theme == "light" ? "dark" : "light";
+
+            //App.SetThemeColorsByPreference();
+
+            //if (PixKeyList != null && PixKeyList.Count > 0)
+            //{
+            //    preferences.Add();
+            //}
+
+            //if (await CrossFingerprint.Current.IsAvailableAsync())
+            //{
+            //    preferences.Add(new Acr.UserDialogs.ActionSheetOption((PreferenceService.FingerPrint ? "Remover" : "Adicionar") + " autenticação biométrica", async () =>
+            //    {
+            //        await SetFingerPrint();
+            //    }));
+            //}
+
+            //if (preferences.Count.Equals(0))
+            //{
+            //    DialogService.Toast("Nenhum preferência disponível para o seu dispositivo");
+            //    return;
+            //}
+
+            DialogService.ActionSheet(new Acr.UserDialogs.ActionSheetConfig
+            {
+                Title = "Preferências",
+                Options = preferences,
+                Cancel = new Acr.UserDialogs.ActionSheetOption("Cancelar", () =>
+                {
+                    return;
+                })
+            });
+        });
+
         public DelegateCommand<Gist> NavigateToDetailCommand => new DelegateCommand<Gist>(async (gist) =>
         {
             var navigationParams = new NavigationParameters

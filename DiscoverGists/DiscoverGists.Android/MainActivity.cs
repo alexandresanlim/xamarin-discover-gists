@@ -1,8 +1,13 @@
 ﻿using Android.App;
 using Android.Content.PM;
 using Android.OS;
+using Android.Views;
+using DiscoverGists.Interfaces;
 using Prism;
 using Prism.Ioc;
+using Xamarin.Essentials;
+using Xamarin.Forms;
+using static DiscoverGists.Droid.MainActivity;
 
 namespace DiscoverGists.Droid
 {
@@ -10,6 +15,8 @@ namespace DiscoverGists.Droid
               ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
+        public static Window CurrentWindow { get; set; }
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             //TabLayoutResource = Resource.Layout.Tabbar;
@@ -19,6 +26,8 @@ namespace DiscoverGists.Droid
 
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             Acr.UserDialogs.UserDialogs.Init(this);
+            CurrentWindow = (this).Window;
+            DependencyService.Register<IStatusBar, StatusBarChanger>();
 
             LoadApplication(new App(new AndroidInitializer()));
         }
@@ -29,13 +38,29 @@ namespace DiscoverGists.Droid
 
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
+
+        public class StatusBarChanger : IStatusBar
+        {
+            public void SetStatusBarColor(System.Drawing.Color color)
+            {
+                if (Build.VERSION.SdkInt < Android.OS.BuildVersionCodes.Lollipop)
+                    return;
+
+                var window = CurrentWindow; //((MainActivity)Forms.Context).Window;
+                window.AddFlags(Android.Views.WindowManagerFlags.DrawsSystemBarBackgrounds);
+                window.ClearFlags(Android.Views.WindowManagerFlags.TranslucentStatus);
+                var androidColor = color.ToPlatformColor();
+
+                window.SetStatusBarColor(androidColor);
+            }
+        }
     }
 
     public class AndroidInitializer : IPlatformInitializer
     {
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            // Register any platform specific implementations
+            //containerRegistry.RegisterSingleton<IStatusBar, StatusBarChanger>();
         }
     }
 }

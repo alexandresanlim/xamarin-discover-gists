@@ -1,3 +1,4 @@
+using DiscoverGists.Interfaces;
 using DiscoverGists.Services;
 using DiscoverGists.Services.Interfaces;
 using DiscoverGists.ViewModels;
@@ -21,6 +22,8 @@ namespace DiscoverGists
         {
             InitializeComponent();
 
+            App.SetThemeColorsByPreference();
+
             await NavigationService.NavigateAsync("NavigationPage/MainPage");
         }
 
@@ -28,7 +31,7 @@ namespace DiscoverGists
         {
             containerRegistry.RegisterSingleton<IAppInfo, AppInfoImplementation>();
             containerRegistry.RegisterSingleton<IGitHubService, GitHubService>();
-
+            
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
             containerRegistry.RegisterForNavigation<FavoritePage, FavoritePageViewModel>();

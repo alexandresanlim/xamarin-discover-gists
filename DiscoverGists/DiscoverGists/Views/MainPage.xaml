@@ -5,47 +5,72 @@
              x:Class="DiscoverGists.Views.MainPage"
              xmlns:icons="clr-namespace:DiscoverGists.Helpers.Icon"
              xmlns:vm="clr-namespace:DiscoverGists.ViewModels" 
-             NavigationPage.HasNavigationBar="False">
+             NavigationPage.HasNavigationBar="False" BackgroundColor="{DynamicResource secondaryDark}">
 
     <Grid RowDefinitions="*, auto" RowSpacing="0">
 
-        <RefreshView Grid.Row="0" IsRefreshing="{Binding IsBusy}" Command="{Binding LoadDataCommand}">
-            <controls:CustomCollectionView ItemsSource="{Binding GistList}">
-                <controls:CustomCollectionView.ItemsLayout>
-                    <LinearItemsLayout Orientation="Vertical" />
-                </controls:CustomCollectionView.ItemsLayout>
-                <controls:CustomCollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <SwipeView>
-                            <SwipeView.LeftItems>
-                                <SwipeItems>
-                                    <SwipeItem Text="Favorite"
+       
+
+        <StackLayout Grid.Row="0" Spacing="0">
+
+            <Grid ColumnDefinitions="*,auto" Padding="25,30">
+
+                <Grid.Background>
+                    <LinearGradientBrush EndPoint="0,1">
+                        <GradientStop Color="{DynamicResource secondary}"
+                          Offset="0.1" />
+                        <GradientStop Color="{DynamicResource secondaryDark}"
+                          Offset="1.0" />
+                    </LinearGradientBrush>
+                </Grid.Background>
+
+                <Label Grid.Column="0" Text="Welcome!" TextColor="{DynamicResource textOnSecondary}" Style="{StaticResource titleStyle}"/>
+                <StackLayout Grid.Column="1" VerticalOptions="Center" Padding="15,10,0,10">
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SettingsCommand}"/>
+                    </StackLayout.GestureRecognizers>
+                    <controls:CustomIcon Glyph="{x:Static icons:FontAwesomeSolid.Cog }" IconSize="Title" IconColor="{DynamicResource textOnSecondary}" />
+                </StackLayout>
+            </Grid>
+
+            <Grid>
+                <controls:CustomFrame BackgroundColor="{DynamicResource primary}" CornerRadius="30,0,0,0">
+                    <RefreshView IsRefreshing="{Binding IsBusy}" Command="{Binding LoadDataCommand}" Margin="0,15,0,0">
+                        <controls:CustomCollectionView ItemsSource="{Binding GistList}">
+                            <controls:CustomCollectionView.ItemsLayout>
+                                <LinearItemsLayout Orientation="Vertical" />
+                            </controls:CustomCollectionView.ItemsLayout>
+                            <controls:CustomCollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <SwipeView>
+                                        <SwipeView.LeftItems>
+                                            <SwipeItems>
+                                                <SwipeItem Text="Favorite"
                                                IconImageSource="favorite.png"
                                                BackgroundColor="LightGreen"
                                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainPageViewModel}}, Path=AddFavoriteCommand}"
                                                CommandParameter="{Binding .}"
                                                />
 
-                                </SwipeItems>
-                            </SwipeView.LeftItems>
-                            <!-- Content -->
+                                            </SwipeItems>
+                                        </SwipeView.LeftItems>
 
-                            <StackLayout Padding="5">
-                                <StackLayout.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainPageViewModel}}, Path=NavigateToDetailCommand}"
+                                        <StackLayout Padding="10,5">
+                                            <StackLayout.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainPageViewModel}}, Path=NavigateToDetailCommand}"
                                                                       CommandParameter="{Binding .}"
                                                                       />
-                                </StackLayout.GestureRecognizers>
+                                            </StackLayout.GestureRecognizers>
 
-                                <Frame BackgroundColor="LightGray" CornerRadius="10" Padding="0">
-                                    <StackLayout Orientation="Horizontal">
-                                        <BoxView Grid.Column="0" BackgroundColor="{Binding ColorFromLanguage}" WidthRequest="15"/>
-
-
-                                        <Grid ColumnDefinitions="auto,*" ColumnSpacing="15" Padding="10">
+                                            <Frame BackgroundColor="{DynamicResource primary}" CornerRadius="10" Padding="0">
+                                                <StackLayout Orientation="Horizontal">
+                                                    <BoxView Grid.Column="0" BackgroundColor="{Binding ColorFromLanguage}" WidthRequest="15"/>
 
 
-                                            <Frame Grid.Column="0" Padding="0"
+                                                    <Grid ColumnDefinitions="auto,*" ColumnSpacing="15" Padding="10">
+
+
+                                                        <Frame Grid.Column="0" Padding="0"
                                                    BorderColor="Black"
                                                     CornerRadius="50"
                                                     HeightRequest="60"
@@ -54,32 +79,50 @@
                                                     HorizontalOptions="Center"
                                                     VerticalOptions="Start"
                                                    >
-                                                <Image Source="{Binding Owner.AvatarUrl}" WidthRequest="100" HeightRequest="100" />
+                                                            <Image Source="{Binding Owner.AvatarUrl}" WidthRequest="100" HeightRequest="100" />
+                                                        </Frame>
+
+                                                        <StackLayout Grid.Column="1">
+                                                            <Label Text="{Binding Owner.Login}" FontSize="Subtitle" TextColor="{DynamicResource textOnPrimary}" Style="{StaticResource fontSemiBold}" />
+                                                            <Label Text="{Binding FilesPresentation}" TextColor="{DynamicResource textOnPrimary}" />
+                                                        </StackLayout>
+
+                                                    </Grid>
+                                                </StackLayout>
                                             </Frame>
-
-                                            <StackLayout Grid.Column="1">
-                                                <Label Text="{Binding Owner.Login}" FontSize="Subtitle" FontAttributes="Bold"/>
-                                                <Label Text="{Binding FilesPresentation}"/>
-                                            </StackLayout>
-
-                                        </Grid>
-                                    </StackLayout>
-                                </Frame>
-                            </StackLayout>
-                        </SwipeView>
+                                        </StackLayout>
+                                    </SwipeView>
 
 
 
 
 
-                    </DataTemplate>
-                </controls:CustomCollectionView.ItemTemplate>
-            </controls:CustomCollectionView>
+                                </DataTemplate>
+                            </controls:CustomCollectionView.ItemTemplate>
+                        </controls:CustomCollectionView>
 
-        </RefreshView>
+                    </RefreshView>
+                </controls:CustomFrame>
+
+                <Frame BackgroundColor="{DynamicResource secondary}" Padding="30,12" CornerRadius="30" VerticalOptions="End" HorizontalOptions="End" Margin="5">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding NavigateToFavoriteCommand}" />
+                    </Frame.GestureRecognizers>
+
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+
+                        <controls:CustomIcon Glyph="{x:Static icons:FontAwesomeSolid.Star }" IconSize="Small" IconColor="{DynamicResource textOnSecondary}" />
+                        <Label Text="Favorites" FontSize="{StaticResource FontSizeSmall}" Style="{StaticResource fontSemiBold}" TextColor="{DynamicResource textOnSecondary}" VerticalOptions="CenterAndExpand" />
+                        
+                    </StackLayout>
+                </Frame>
+            </Grid>
+        </StackLayout>
+
+        
 
         <!--Menu-->
-        <Frame Grid.Row="1" Margin="5,0,5,5" Padding="0" BackgroundColor="{DynamicResource secondary}" CornerRadius="30" HasShadow="False">
+        <!--<Frame Grid.Row="1" Margin="5" Padding="0" BackgroundColor="{DynamicResource secondaryDark}" CornerRadius="30" HasShadow="False">
             <Grid ColumnDefinitions="*,auto,auto,auto,*">
                 <StackLayout Grid.Column="1" Padding="15,10">
                     <StackLayout.GestureRecognizers>
@@ -89,13 +132,13 @@
                     <Label Text="Favorites" FontAttributes="Bold" FontSize="Micro" TextColor="{DynamicResource textOnSecondary}" />
                 </StackLayout>
                 <StackLayout Grid.Column="2" Padding="15,10">
-                    <!--<StackLayout.GestureRecognizers>
+                    --><!--<StackLayout.GestureRecognizers>
                         <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
-                    </StackLayout.GestureRecognizers>-->
+                    </StackLayout.GestureRecognizers>--><!--
                     <controls:CustomIcon Glyph="{x:Static icons:FontAwesomeSolid.PaintBrush }" IconSize="Medium" IconColor="{DynamicResource textOnSecondary}" />
                     <Label Text="Theme" FontAttributes="Bold" FontSize="Micro" TextColor="{DynamicResource textOnSecondary}" />
                 </StackLayout>
-                <!--<StackLayout Grid.Column="3" Padding="15,10">
+                --><!--<StackLayout Grid.Column="3" Padding="15,10">
                     -->
                 <!--<StackLayout.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding OpenAppInStoreCommand}" />
@@ -103,9 +146,9 @@
                 <!--
                     <controls:CustomIcon Glyph="{x:Static icons:FontAwesomeSolid.Star }" IconSize="Medium" IconColor="{DynamicResource textOnSecondary}" />
                     <Label Text="Rate" FontAttributes="Bold" FontSize="Micro" TextColor="{DynamicResource textOnSecondary}" />
-                </StackLayout>-->
+                </StackLayout>--><!--
             </Grid>
-        </Frame>
+        </Frame>-->
     </Grid>
 
 
