@@ -26,8 +26,6 @@ namespace DiscoverGists.ViewModels
         public MainPageViewModel(INavigationService navigationService, IGitHubService gitHubService)
             : base(navigationService)
         {
-            Title = "Main Page";
-
             _gitHubService = gitHubService;
 
             LoadDataCommand.Execute(null);
@@ -44,16 +42,7 @@ namespace DiscoverGists.ViewModels
             {
                 IsBusy = true;
 
-                var gistList = await _gitHubService.GetGistList(page: 1);
-
-                GistList = gistList.ToObservableCollection();
-
-                var languageColors = LanguageColors.GetList();
-
-                foreach (var item in GistList)
-                {
-                    item.FirstFile.ColorFromLanguage = languageColors?.FirstOrDefault(x => x.Language?.ToLower() == item?.FirstFile?.Language?.ToLower())?.Color ?? "#2980b9";
-                }
+                await GetGistListFromService();
             }
             catch (Exception e)
             {
@@ -64,6 +53,52 @@ namespace DiscoverGists.ViewModels
                 IsBusy = false;
             }
         }
+
+        private async Task GetGistListFromService()
+        {
+            var gistList = await _gitHubService.GetGistList(LastPage);
+
+            var languageColors = LanguageColors.GetList();
+
+            foreach (var item in gistList)
+            {
+                item.FirstFile.ColorFromLanguage = languageColors?.FirstOrDefault(x => x.Language?.ToLower() == item?.FirstFile?.Language?.ToLower())?.Color ?? "#2980b9";
+            }
+
+            if (LastPage == 1)
+                GistList = gistList.ToObservableCollection();
+
+            else
+            {
+                foreach (var item in gistList)
+                {
+                    GistList.Add(item);
+                }
+            }
+        }
+
+        public ICommand LoadMoreCommand => new DelegateCommand(async () =>
+        {
+            try
+            {
+                if (IsLoad)
+                    return;
+
+                IsLoad = true;
+
+                LastPage += 1;
+
+                await GetGistListFromService();
+            }
+            catch (Exception e)
+            {
+                DialogService.Toast("Ops! Something wrong has happened");
+            }
+            finally
+            {
+                IsLoad = false;
+            }
+        });
 
         public ICommand NavigateToFavoriteCommand => new DelegateCommand(async () =>
         {
@@ -80,31 +115,6 @@ namespace DiscoverGists.ViewModels
                     App.SetThemeColorsByPreference();
                 })
             };
-
-
-
-            //PreferenceService.Theme = PreferenceService.Theme == "light" ? "dark" : "light";
-
-            //App.SetThemeColorsByPreference();
-
-            //if (PixKeyList != null && PixKeyList.Count > 0)
-            //{
-            //    preferences.Add();
-            //}
-
-            //if (await CrossFingerprint.Current.IsAvailableAsync())
-            //{
-            //    preferences.Add(new Acr.UserDialogs.ActionSheetOption((PreferenceService.FingerPrint ? "Remover" : "Adicionar") + " autenticação biométrica", async () =>
-            //    {
-            //        await SetFingerPrint();
-            //    }));
-            //}
-
-            //if (preferences.Count.Equals(0))
-            //{
-            //    DialogService.Toast("Nenhum preferência disponível para o seu dispositivo");
-            //    return;
-            //}
 
             DialogService.ActionSheet(new Acr.UserDialogs.ActionSheetConfig
             {
@@ -140,5 +150,14 @@ namespace DiscoverGists.ViewModels
             set => SetProperty(ref _gistList, value);
             get => _gistList;
         }
+
+        private bool _isLoad;
+        public bool IsLoad
+        {
+            set => SetProperty(ref _isLoad, value);
+            get => _isLoad;
+        }
+
+        public int LastPage { get; set; } = 1;
     }
 }

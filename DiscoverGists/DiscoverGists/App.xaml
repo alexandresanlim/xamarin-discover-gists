@@ -37,6 +37,12 @@
             <Setter Property="PlaceholderColor" Value="LightGray" />
         </Style>
 
+        <Style TargetType="ActivityIndicator">
+            <Setter Property="IsRunning" Value="True"/>
+            <Setter Property="HorizontalOptions" Value="CenterAndExpand"/>
+            <Setter Property="Color" Value="{DynamicResource secondary}" />
+        </Style>
+
         <ResourceDictionary>
             <Style x:Key="titleStyle" TargetType="Label">
                 <Setter Property="FontSize" Value="35" />

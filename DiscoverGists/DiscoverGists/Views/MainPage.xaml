@@ -33,64 +33,71 @@
         </Grid>
 
         <Grid>
-            <controls:CustomFrame BackgroundColor="{DynamicResource primary}" CornerRadius="35,0,0,0">
-                <RefreshView IsRefreshing="{Binding IsBusy}" Command="{Binding LoadDataCommand}" Margin="0,15,0,0">
-                    <controls:CustomCollectionView ItemsSource="{Binding GistList}" Margin="15,0">
-                        <controls:CustomCollectionView.ItemsLayout>
-                            <LinearItemsLayout Orientation="Vertical" />
-                        </controls:CustomCollectionView.ItemsLayout>
-                        <controls:CustomCollectionView.ItemTemplate>
-                            <DataTemplate>
+            <Grid RowDefinitions="*,auto" RowSpacing="0">
+                <controls:CustomFrame Grid.Row="0" BackgroundColor="{DynamicResource primary}" CornerRadius="35,0,0,0">
+                    <RefreshView IsRefreshing="{Binding IsBusy}" Command="{Binding LoadDataCommand}" Margin="0,15,0,0">
+                        <controls:CustomCollectionView ItemsSource="{Binding GistList}" Margin="15,0" RemainingItemsThreshold="0" RemainingItemsThresholdReachedCommand="{Binding LoadMoreCommand}">
+                            <controls:CustomCollectionView.ItemsLayout>
+                                <LinearItemsLayout Orientation="Vertical" />
+                            </controls:CustomCollectionView.ItemsLayout>
+                            <controls:CustomCollectionView.ItemTemplate>
+                                <DataTemplate>
 
-                                <StackLayout Padding="0,5">
+                                    <StackLayout Padding="0,5">
 
-                                    <Frame BackgroundColor="{DynamicResource primaryLight}" CornerRadius="10" Padding="0">
-                                        <SwipeView>
-                                            <SwipeView.LeftItems>
-                                                <SwipeItems>
-                                                    <SwipeItem Text="Favorite"
+                                        <Frame BackgroundColor="{DynamicResource primaryLight}" CornerRadius="10" Padding="0">
+                                            <SwipeView>
+                                                <SwipeView.LeftItems>
+                                                    <SwipeItems>
+                                                        <SwipeItem Text="Favorite"
                                                                    IconImageSource="favorite.png"
                                                                    BackgroundColor="Yellow"
                                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainPageViewModel}}, Path=AddFavoriteCommand}"
                                                                    CommandParameter="{Binding .}"
                                                                    />
-                                                </SwipeItems>
-                                            </SwipeView.LeftItems>
+                                                    </SwipeItems>
+                                                </SwipeView.LeftItems>
 
-                                            <StackLayout Orientation="Horizontal">
+                                                <StackLayout Orientation="Horizontal">
 
-                                                <StackLayout.GestureRecognizers>
-                                                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainPageViewModel}}, Path=NavigateToDetailCommand}" CommandParameter="{Binding .}" />
-                                                </StackLayout.GestureRecognizers>
+                                                    <StackLayout.GestureRecognizers>
+                                                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainPageViewModel}}, Path=NavigateToDetailCommand}" CommandParameter="{Binding .}" />
+                                                    </StackLayout.GestureRecognizers>
 
-                                                <BoxView Grid.Column="0" BackgroundColor="{Binding FirstFile.ColorFromLanguage}" WidthRequest="15"/>
+                                                    <BoxView Grid.Column="0" BackgroundColor="{Binding FirstFile.ColorFromLanguage}" WidthRequest="15"/>
 
-                                                <Grid ColumnDefinitions="auto,*" ColumnSpacing="15" Padding="10">
+                                                    <Grid ColumnDefinitions="auto,*" ColumnSpacing="15" Padding="10">
 
-                                                    <Frame Grid.Column="0" Padding="0" BorderColor="Black" CornerRadius="50" HeightRequest="60" WidthRequest="60" IsClippedToBounds="True" HorizontalOptions="Center" VerticalOptions="Start">
-                                                        <Image Source="{Binding Owner.AvatarUrl}" WidthRequest="100" HeightRequest="100" />
-                                                    </Frame>
+                                                        <Frame Grid.Column="0" Padding="0" BorderColor="Black" CornerRadius="50" HeightRequest="60" WidthRequest="60" IsClippedToBounds="True" HorizontalOptions="Center" VerticalOptions="Start">
+                                                            <Image Source="{Binding Owner.AvatarUrl}" WidthRequest="100" HeightRequest="100" />
+                                                        </Frame>
 
-                                                    <StackLayout Grid.Column="1">
-                                                        <Label Text="{Binding Owner.Login}" FontSize="{StaticResource FontSizeMedium}" TextColor="{DynamicResource textOnPrimary}" Style="{StaticResource fontSemiBold}" />
-                                                        <Label Text="{Binding FilesPresentation}" TextColor="{DynamicResource textOnPrimary}" />
-                                                    </StackLayout>
+                                                        <StackLayout Grid.Column="1">
+                                                            <Label Text="{Binding Owner.Login}" FontSize="{StaticResource FontSizeMedium}" TextColor="{DynamicResource textOnPrimary}" Style="{StaticResource fontSemiBold}" />
+                                                            <Label Text="{Binding FilesPresentation}" TextColor="{DynamicResource textOnPrimary}" />
+                                                        </StackLayout>
 
-                                                </Grid>
-                                            </StackLayout>
+                                                    </Grid>
+                                                </StackLayout>
 
-                                        </SwipeView>
+                                            </SwipeView>
 
-                                    </Frame>
+                                        </Frame>
 
-                                </StackLayout>
+                                    </StackLayout>
 
-                            </DataTemplate>
-                        </controls:CustomCollectionView.ItemTemplate>
-                    </controls:CustomCollectionView>
+                                </DataTemplate>
+                            </controls:CustomCollectionView.ItemTemplate>
+                        </controls:CustomCollectionView>
 
-                </RefreshView>
-            </controls:CustomFrame>
+                    </RefreshView>
+                </controls:CustomFrame>
+
+                <StackLayout Grid.Row="1" Padding="15" BackgroundColor="{DynamicResource primary}" IsVisible="{Binding IsLoad}">
+                    <ActivityIndicator />
+                </StackLayout>
+                
+            </Grid>
 
             <Frame BackgroundColor="{DynamicResource secondary}" Padding="30,12" CornerRadius="30" VerticalOptions="End" HorizontalOptions="End" Margin="5">
                 <Frame.GestureRecognizers>
@@ -105,6 +112,7 @@
                 </StackLayout>
             </Frame>
         </Grid>
+        
     </StackLayout>
 
 
