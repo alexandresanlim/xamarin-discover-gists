@@ -10,6 +10,9 @@ namespace DiscoverGists.Models
 {
     public class Gist
     {
+        [JsonProperty("id"), BsonId]
+        public string Id { get; set; }
+
         [JsonProperty("url")]
         public string Url { get; set; }
 
@@ -18,9 +21,6 @@ namespace DiscoverGists.Models
 
         [JsonProperty("commits_url")]
         public string CommitsUrl { get; set; }
-
-        [JsonProperty("id"), BsonId]
-        public string Id { get; set; }
 
         [JsonProperty("node_id")]
         public string NodeId { get; set; }
@@ -65,21 +65,21 @@ namespace DiscoverGists.Models
         public bool Truncated { get; set; }
 
         [JsonIgnore, BsonIgnore]
+        public File FirstFile => Files?.Select(x => x.Value)?.FirstOrDefault() ?? new File();
+
+        [JsonIgnore, BsonIgnore]
         public string FilesPresentation
         {
             get
             {
-                var presentationReturn = "";
+                if (string.IsNullOrEmpty(FirstFile?.Filename))
+                    return "";
 
-                if (Files == null || Files.Count.Equals(0))
-                    return presentationReturn;
-
-                var item = Files.FirstOrDefault();
-
-                //foreach (var item in Files)
-                //{
-                presentationReturn += "Type: " + item.Value.Type + " \nName: " + item.Value.Filename + " \nSize: " + item.Value.Size + " \nLanguage: " + (!string.IsNullOrEmpty(item.Value?.Language) ? item.Value?.Language : "Not found") + "\n";
-                //}
+                var presentationReturn =
+                    "Type: " + FirstFile.Type + "\n" +
+                    "Name: " + FirstFile.Filename + "\n" +
+                    "Size: " + FirstFile.Size + "\n" +
+                    "Language: " + FirstFile.LanguagePresentation + "\n";
 
                 if (Files.Count > 1)
                     presentationReturn += "More " + Files.Count + " found";
@@ -87,7 +87,5 @@ namespace DiscoverGists.Models
                 return presentationReturn;
             }
         }
-
-        public File FirstFile => Files?.Select(x => x.Value)?.FirstOrDefault() ?? new File();
     }
 }

@@ -44,12 +44,8 @@
                                 <DataTemplate>
 
                                     <StackLayout Padding="0,5">
-                                        
 
                                         <Frame BackgroundColor="{DynamicResource primaryLight}" CornerRadius="10" Padding="0">
-
-                                            
-
                                             <SwipeView>
                                                 <SwipeView.LeftItems>
                                                     <SwipeItems>
@@ -59,10 +55,8 @@
                                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainPageViewModel}}, Path=AddFavoriteCommand}"
                                                                    CommandParameter="{Binding .}"
                                                                    />
-
                                                     </SwipeItems>
                                                 </SwipeView.LeftItems>
-
 
                                                 <StackLayout Orientation="Horizontal">
 
@@ -90,8 +84,8 @@
 
                                             </SwipeView>
 
-
                                         </Frame>
+
                                     </StackLayout>
 
                                 </DataTemplate>

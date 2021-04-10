@@ -96,15 +96,14 @@
                     <CarouselView.ItemTemplate>
                         <DataTemplate>
 
-                            <!--<Frame CornerRadius="15" Padding="0,25,0,0" BackgroundColor="Transparent">-->
                             <StackLayout>
                                 <StackLayout Spacing="30" VerticalOptions="CenterAndExpand" Margin="5,0">
                                     <Frame BackgroundColor="{DynamicResource primaryLight}" CornerRadius="35" Padding="30,15">
-                                        <Label Text="{Binding Filename}" HorizontalOptions="Center" FontSize="{StaticResource FontSizeMedium}" Style="{StaticResource fontBold}" TextColor="{DynamicResource textOnSecondary}" MaxLines="1" LineBreakMode="TailTruncation" />
+                                        <Label Text="{Binding Filename}" HorizontalOptions="Center" FontSize="{StaticResource FontSizeMedium}" Style="{StaticResource fontBold}" TextColor="{DynamicResource textOnPrimary}" MaxLines="1" LineBreakMode="TailTruncation" />
                                     </Frame>
 
                                     <Frame HorizontalOptions="Center" CornerRadius="30" Padding="30,10" BackgroundColor="{Binding ColorFromLanguage}">
-                                        <Label Text="{Binding LanguagePresentation}" HorizontalOptions="Center" FontSize="{StaticResource FontSizeSmall}" TextColor="White" />
+                                        <Label Text="{Binding LanguagePresentation}" HorizontalOptions="Center" FontSize="{StaticResource FontSizeSmall}" TextColor="White" Style="{StaticResource fontSemiBold}" />
                                     </Frame>
 
                                     <StackLayout HorizontalOptions="Center">
@@ -112,13 +111,13 @@
                                         <Frame BackgroundColor="{DynamicResource primaryLight}" CornerRadius="15" Padding="30,15">
                                             <StackLayout>
                                                 <StackLayout Orientation="Horizontal">
-                                                    <Label Text="Format:" FontSize="{StaticResource FontSizeMedium}" HorizontalOptions="End" Style="{StaticResource fontSemiBold}" TextColor="{DynamicResource textOnSecondary}" />
-                                                    <Label Text="{Binding Type}" HorizontalOptions="Start" FontSize="{StaticResource FontSizeMedium}" TextColor="{DynamicResource textOnSecondary}" MaxLines="1" LineBreakMode="TailTruncation"  />
+                                                    <Label Text="Format:" FontSize="{StaticResource FontSizeMedium}" HorizontalOptions="End" Style="{StaticResource fontSemiBold}" TextColor="{DynamicResource textOnPrimary}" MaxLines="1" LineBreakMode="TailTruncation" />
+                                                    <Label Text="{Binding Type}" HorizontalOptions="Start" FontSize="{StaticResource FontSizeMedium}" TextColor="{DynamicResource textOnPrimary}" MaxLines="1" LineBreakMode="TailTruncation"  />
                                                 </StackLayout>
 
                                                 <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-                                                    <Label Text="Size:" FontSize="{StaticResource FontSizeMedium}"  HorizontalOptions="End" Style="{StaticResource fontSemiBold}" TextColor="{DynamicResource textOnSecondary}"  />
-                                                    <Label Text="{Binding Size}" HorizontalOptions="Start" FontSize="{StaticResource FontSizeMedium}" TextColor="{DynamicResource textOnSecondary}"  />
+                                                    <Label Text="Size:" FontSize="{StaticResource FontSizeMedium}"  HorizontalOptions="End" Style="{StaticResource fontSemiBold}" TextColor="{DynamicResource textOnPrimary}"  />
+                                                    <Label Text="{Binding Size}" HorizontalOptions="Start" FontSize="{StaticResource FontSizeMedium}" TextColor="{DynamicResource textOnPrimary}"  />
                                                 </StackLayout>
                                             </StackLayout>
                                         </Frame>
@@ -126,10 +125,6 @@
                                     </StackLayout>
                                 </StackLayout>
                             </StackLayout>
-                            <!--</Frame>-->
-
-
-
                         </DataTemplate>
                     </CarouselView.ItemTemplate>
 
@@ -138,7 +133,9 @@
                 <IndicatorView x:Name="indicatorView"
                                        IndicatorsShape="Circle"
                                        IndicatorColor="LightGray"
-                                       SelectedIndicatorColor="DarkGray" />
+                                       SelectedIndicatorColor="DarkGray" 
+                               Margin="0,0,0,5"
+                               />
             </StackLayout>
         </controls:CustomFrame>
 
