@@ -21,5 +21,11 @@ namespace DiscoverGists.Models
 
         [JsonProperty("size")]
         public long Size { get; set; }
+
+        [JsonIgnore]
+        public string ColorFromLanguage { get; set; }
+
+        [JsonIgnore]
+        public string LanguagePresentation => !string.IsNullOrEmpty(Language) ? Language : "Not found";
     }
 }

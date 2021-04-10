@@ -34,68 +34,65 @@
             </Grid>
 
             <Grid>
-                <controls:CustomFrame BackgroundColor="{DynamicResource primary}" CornerRadius="30,0,0,0">
+                <controls:CustomFrame BackgroundColor="{DynamicResource primary}" CornerRadius="35,0,0,0">
                     <RefreshView IsRefreshing="{Binding IsBusy}" Command="{Binding LoadDataCommand}" Margin="0,15,0,0">
-                        <controls:CustomCollectionView ItemsSource="{Binding GistList}">
+                        <controls:CustomCollectionView ItemsSource="{Binding GistList}" Margin="15,0">
                             <controls:CustomCollectionView.ItemsLayout>
                                 <LinearItemsLayout Orientation="Vertical" />
                             </controls:CustomCollectionView.ItemsLayout>
                             <controls:CustomCollectionView.ItemTemplate>
                                 <DataTemplate>
-                                    <SwipeView>
-                                        <SwipeView.LeftItems>
-                                            <SwipeItems>
-                                                <SwipeItem Text="Favorite"
-                                               IconImageSource="favorite.png"
-                                               BackgroundColor="LightGreen"
-                                               Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainPageViewModel}}, Path=AddFavoriteCommand}"
-                                               CommandParameter="{Binding .}"
-                                               />
 
-                                            </SwipeItems>
-                                        </SwipeView.LeftItems>
+                                    <StackLayout Padding="0,5">
+                                        
 
-                                        <StackLayout Padding="10,5">
-                                            <StackLayout.GestureRecognizers>
-                                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainPageViewModel}}, Path=NavigateToDetailCommand}"
+                                        <Frame BackgroundColor="{DynamicResource primaryLight}" CornerRadius="10" Padding="0">
+
+                                            
+
+                                            <SwipeView>
+                                                <SwipeView.LeftItems>
+                                                    <SwipeItems>
+                                                        <SwipeItem Text="Favorite"
+                                                                   IconImageSource="favorite.png"
+                                                                   BackgroundColor="Yellow"
+                                                                   Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainPageViewModel}}, Path=AddFavoriteCommand}"
+                                                                   CommandParameter="{Binding .}"
+                                                                   />
+
+                                                    </SwipeItems>
+                                                </SwipeView.LeftItems>
+
+
+                                                <StackLayout Orientation="Horizontal">
+
+                                                    <StackLayout.GestureRecognizers>
+                                                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainPageViewModel}}, Path=NavigateToDetailCommand}"
                                                                       CommandParameter="{Binding .}"
                                                                       />
-                                            </StackLayout.GestureRecognizers>
+                                                    </StackLayout.GestureRecognizers>
 
-                                            <Frame BackgroundColor="{DynamicResource primaryLight}" CornerRadius="10" Padding="0">
-                                                <StackLayout Orientation="Horizontal">
-                                                    <BoxView Grid.Column="0" BackgroundColor="{Binding ColorFromLanguage}" WidthRequest="15"/>
-
+                                                    <BoxView Grid.Column="0" BackgroundColor="{Binding FirstFile.ColorFromLanguage}" WidthRequest="15"/>
 
                                                     <Grid ColumnDefinitions="auto,*" ColumnSpacing="15" Padding="10">
 
-
-                                                        <Frame Grid.Column="0" Padding="0"
-                                                   BorderColor="Black"
-                                                    CornerRadius="50"
-                                                    HeightRequest="60"
-                                                    WidthRequest="60"
-                                                    IsClippedToBounds="True"
-                                                    HorizontalOptions="Center"
-                                                    VerticalOptions="Start"
-                                                   >
+                                                        <Frame Grid.Column="0" Padding="0" BorderColor="Black" CornerRadius="50" HeightRequest="60" WidthRequest="60" IsClippedToBounds="True" HorizontalOptions="Center" VerticalOptions="Start">
                                                             <Image Source="{Binding Owner.AvatarUrl}" WidthRequest="100" HeightRequest="100" />
                                                         </Frame>
 
                                                         <StackLayout Grid.Column="1">
-                                                            <Label Text="{Binding Owner.Login}" FontSize="Subtitle" TextColor="{DynamicResource textOnPrimary}" Style="{StaticResource fontSemiBold}" />
+                                                            <Label Text="{Binding Owner.Login}" FontSize="{StaticResource FontSizeMedium}" TextColor="{DynamicResource textOnPrimary}" Style="{StaticResource fontSemiBold}" />
                                                             <Label Text="{Binding FilesPresentation}" TextColor="{DynamicResource textOnPrimary}" />
                                                         </StackLayout>
 
                                                     </Grid>
                                                 </StackLayout>
-                                            </Frame>
-                                        </StackLayout>
-                                    </SwipeView>
+
+                                            </SwipeView>
 
 
-
-
+                                        </Frame>
+                                    </StackLayout>
 
                                 </DataTemplate>
                             </controls:CustomCollectionView.ItemTemplate>

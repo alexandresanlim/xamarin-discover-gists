@@ -52,7 +52,7 @@ namespace DiscoverGists.ViewModels
 
                 foreach (var item in GistList)
                 {
-                    item.ColorFromLanguage = languageColors?.FirstOrDefault(x => x.Language?.ToLower() == item?.FirstFile.Value?.Language?.ToLower())?.Color ?? "#2980b9";
+                    item.FirstFile.ColorFromLanguage = languageColors?.FirstOrDefault(x => x.Language?.ToLower() == item?.FirstFile?.Language?.ToLower())?.Color ?? "#2980b9";
                 }
             }
             catch (Exception e)

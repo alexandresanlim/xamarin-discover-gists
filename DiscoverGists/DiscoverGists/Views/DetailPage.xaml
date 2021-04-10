@@ -1,37 +1,147 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:prism="http://prismlibrary.com"
+             xmlns:prism="http://prismlibrary.com" xmlns:controls="clr-namespace:DiscoverGists.Controls"
              prism:ViewModelLocator.AutowireViewModel="True"
-             x:Class="DiscoverGists.Views.DetailPage">
+             x:Class="DiscoverGists.Views.DetailPage"
+             xmlns:icons="clr-namespace:DiscoverGists.Helpers.Icon"
+             BackgroundColor="{DynamicResource secondaryDark}"
+             >
 
-    <Frame BackgroundColor="LightGray" CornerRadius="10" Padding="0">
-        <StackLayout Orientation="Horizontal">
-            <BoxView Grid.Column="0" BackgroundColor="Green" WidthRequest="15"/>
+    <ContentPage.Resources>
+        <ResourceDictionary>
 
 
-            <Grid ColumnDefinitions="auto,*" ColumnSpacing="15" Padding="10">
+            <Style x:Key="titleMenuStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="Micro" />
+                <Setter Property="TextColor" Value="{DynamicResource textOnSecondary}"/>
+                <Setter Property="FontFamily" Value="FontPoppinsSemiBold"/>
+                <Setter Property="HorizontalOptions" Value="Center"/>
+            </Style>
 
+            <Style x:Key="iconMenuStyle" TargetType="controls:CustomIcon">
+                <Setter Property="IconSize" Value="Medium" />
+                <Setter Property="IconColor" Value="{DynamicResource textOnSecondary}"/>
+            </Style>
 
-                <Frame Grid.Column="0" Padding="0"
-                                                   BorderColor="Black"
-                                                    CornerRadius="50"
-                                                    HeightRequest="60"
-                                                    WidthRequest="60"
-                                                    IsClippedToBounds="True"
-                                                    HorizontalOptions="Center"
-                                                    VerticalOptions="Start"
-                                                   >
-                    <Image Source="{Binding Gist.Owner.AvatarUrl}" WidthRequest="100" HeightRequest="100" />
-                </Frame>
+            <Style x:Key="frameMenuStyle" TargetType="Frame">
+                <Setter Property="CornerRadius" Value="10" />
+                <Setter Property="BackgroundColor" Value="#25000000"/>
+                <Setter Property="WidthRequest" Value="60"/>
+            </Style>
 
-                <StackLayout Grid.Column="1">
-                    <Label Text="{Binding Gist.Owner.Login}" FontSize="Subtitle" FontAttributes="Bold"/>
-                    <Label Text="{Binding Gist.FilesPresentation}"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid RowDefinitions="auto,*" RowSpacing="0">
+
+        <StackLayout Grid.Row="0">
+            <StackLayout.Background>
+                <LinearGradientBrush EndPoint="0,1">
+                    <GradientStop Color="{DynamicResource secondary}"
+                          Offset="0.1" />
+                    <GradientStop Color="{DynamicResource secondaryDark}"
+                          Offset="1.0" />
+                </LinearGradientBrush>
+            </StackLayout.Background>
+
+            <Grid>
+                <controls:CustomFrame CornerRadius="35,35,0,0" BackgroundColor="{DynamicResource secondaryDark}" Margin="0,40,0,0">
+                    <StackLayout VerticalOptions="Start" HorizontalOptions="End" Padding="25">
+                        <controls:CustomIcon Glyph="{x:Static icons:FontAwesomeSolid.Star }" Style="{StaticResource iconMenuStyle}" />
+                    </StackLayout>
+                </controls:CustomFrame>
+
+                <StackLayout Spacing="0">
+                    
+                    <Frame Grid.Column="0" Padding="0" BorderColor="Black" CornerRadius="50" HeightRequest="80" WidthRequest="80" IsClippedToBounds="True" HorizontalOptions="Center" VerticalOptions="Start"                    >
+                        <Image Source="{Binding Gist.Owner.AvatarUrl}" WidthRequest="120" HeightRequest="120" />
+                    </Frame>
+
+                    <Label Text="{Binding Gist.Owner.Login}" Style="{StaticResource titleStyle}" HorizontalTextAlignment="Center" TextColor="{DynamicResource textOnSecondary}"/>
+
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Padding="0,15">
+                        <Frame Style="{StaticResource frameMenuStyle}">
+                            <StackLayout>
+                                <controls:CustomIcon Glyph="{x:Static icons:FontAwesomeSolid.Link }" Style="{StaticResource iconMenuStyle}"  />
+                                <Label Text="Url" Style="{StaticResource titleMenuStyle}" />
+                            </StackLayout>
+                        </Frame>
+
+                        <Frame Style="{StaticResource frameMenuStyle}">
+                            <StackLayout>
+                                <controls:CustomIcon Glyph="{x:Static icons:FontAwesomeSolid.Comments }" Style="{StaticResource iconMenuStyle}" />
+                                <Label Text="Comments" Style="{StaticResource titleMenuStyle}" />
+                            </StackLayout>
+                        </Frame>
+
+                        <Frame Style="{StaticResource frameMenuStyle}">
+                            <StackLayout>
+                                <controls:CustomIcon Glyph="{x:Static icons:FontAwesomeSolid.FolderOpen }" Style="{StaticResource iconMenuStyle}" />
+                                <Label Text="Files" Style="{StaticResource titleMenuStyle}" />
+                            </StackLayout>
+                        </Frame>
+
+                    </StackLayout>
                 </StackLayout>
-
             </Grid>
+
         </StackLayout>
-    </Frame>
+
+        <controls:CustomFrame Grid.Row="1" BackgroundColor="{DynamicResource primary}" CornerRadius="35,35,0,0">
+            <StackLayout>
+
+                <CarouselView IndicatorView="indicatorView" PeekAreaInsets="40,0" ItemsSource="{Binding FileList}" IsScrollAnimated="True" Loop="False">
+
+                    <CarouselView.ItemTemplate>
+                        <DataTemplate>
+
+                            <!--<Frame CornerRadius="15" Padding="0,25,0,0" BackgroundColor="Transparent">-->
+                            <StackLayout>
+                                <StackLayout Spacing="30" VerticalOptions="CenterAndExpand" Margin="5,0">
+                                    <Frame BackgroundColor="{DynamicResource primaryLight}" CornerRadius="35" Padding="30,15">
+                                        <Label Text="{Binding Filename}" HorizontalOptions="Center" FontSize="{StaticResource FontSizeMedium}" Style="{StaticResource fontBold}" TextColor="{DynamicResource textOnSecondary}" MaxLines="1" LineBreakMode="TailTruncation" />
+                                    </Frame>
+
+                                    <Frame HorizontalOptions="Center" CornerRadius="30" Padding="30,10" BackgroundColor="{Binding ColorFromLanguage}">
+                                        <Label Text="{Binding LanguagePresentation}" HorizontalOptions="Center" FontSize="{StaticResource FontSizeSmall}" TextColor="White" />
+                                    </Frame>
+
+                                    <StackLayout HorizontalOptions="Center">
+
+                                        <Frame BackgroundColor="{DynamicResource primaryLight}" CornerRadius="15" Padding="30,15">
+                                            <StackLayout>
+                                                <StackLayout Orientation="Horizontal">
+                                                    <Label Text="Format:" FontSize="{StaticResource FontSizeMedium}" HorizontalOptions="End" Style="{StaticResource fontSemiBold}" TextColor="{DynamicResource textOnSecondary}" />
+                                                    <Label Text="{Binding Type}" HorizontalOptions="Start" FontSize="{StaticResource FontSizeMedium}" TextColor="{DynamicResource textOnSecondary}" MaxLines="1" LineBreakMode="TailTruncation"  />
+                                                </StackLayout>
+
+                                                <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                                                    <Label Text="Size:" FontSize="{StaticResource FontSizeMedium}"  HorizontalOptions="End" Style="{StaticResource fontSemiBold}" TextColor="{DynamicResource textOnSecondary}"  />
+                                                    <Label Text="{Binding Size}" HorizontalOptions="Start" FontSize="{StaticResource FontSizeMedium}" TextColor="{DynamicResource textOnSecondary}"  />
+                                                </StackLayout>
+                                            </StackLayout>
+                                        </Frame>
+
+                                    </StackLayout>
+                                </StackLayout>
+                            </StackLayout>
+                            <!--</Frame>-->
+
+
+
+                        </DataTemplate>
+                    </CarouselView.ItemTemplate>
+
+                </CarouselView>
+
+                <IndicatorView x:Name="indicatorView"
+                                       IndicatorsShape="Circle"
+                                       IndicatorColor="LightGray"
+                                       SelectedIndicatorColor="DarkGray" />
+            </StackLayout>
+        </controls:CustomFrame>
+
+    </Grid>
 
 </ContentPage>

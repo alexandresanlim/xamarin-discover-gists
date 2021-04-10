@@ -38,8 +38,18 @@
                 <Setter Property="FontFamily" Value="FontPoppinsBold"/>
             </Style>
 
+            <Style x:Key="subTitleStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="25" />
+                <Setter Property="TextColor" Value="{DynamicResource textOnPrimary}"/>
+                <Setter Property="FontFamily" Value="FontPoppinsSemiBold"/>
+            </Style>
+
             <Style x:Key="fontSemiBold" TargetType="Label">
                 <Setter Property="FontFamily" Value="FontPoppinsSemiBold"/>
+            </Style>
+
+            <Style x:Key="fontBold" TargetType="Label">
+                <Setter Property="FontFamily" Value="FontPoppinsBold"/>
             </Style>
 
         </ResourceDictionary>

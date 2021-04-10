@@ -88,9 +88,6 @@ namespace DiscoverGists.Models
             }
         }
 
-        public KeyValuePair<string, File> FirstFile => Files.FirstOrDefault();
-
-        [JsonIgnore]
-        public string ColorFromLanguage { get; set; }
+        public File FirstFile => Files?.Select(x => x.Value)?.FirstOrDefault() ?? new File();
     }
 }

@@ -6,6 +6,9 @@ namespace DiscoverGists.Views
     {
         public DetailPage()
         {
+            var navigationPage = Application.Current.MainPage as NavigationPage;
+            navigationPage.BarBackgroundColor = App.ThemeColors.Secondary;
+
             InitializeComponent();
         }
     }
