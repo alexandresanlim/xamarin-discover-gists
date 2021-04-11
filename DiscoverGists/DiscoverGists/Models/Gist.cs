@@ -71,6 +71,9 @@ namespace DiscoverGists.Models
         public File FirstFile => Files?.Select(x => x.Value)?.FirstOrDefault() ?? new File();
 
         [JsonIgnore, BsonIgnore]
+        public int FilesCount => Files?.Count() ?? 0;
+
+        [JsonIgnore, BsonIgnore]
         public string FilesPresentation
         {
             get
@@ -83,9 +86,6 @@ namespace DiscoverGists.Models
                     "Name: " + FirstFile.Filename + "\n" +
                     "Size: " + FirstFile.Size + "\n" +
                     "Language: " + FirstFile.LanguagePresentation + "\n";
-
-                if (Files.Count > 1)
-                    presentationReturn += "More " + Files.Count + " found";
 
                 return presentationReturn;
             }

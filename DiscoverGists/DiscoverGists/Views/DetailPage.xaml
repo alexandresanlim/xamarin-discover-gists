@@ -48,7 +48,13 @@
             <Grid>
                 <controls:CustomFrame CornerRadius="35,35,0,0" BackgroundColor="{DynamicResource secondaryDark}" Margin="0,40,0,0">
                     <StackLayout VerticalOptions="Start" HorizontalOptions="End" Padding="25">
-                        <controls:CustomIcon Glyph="{x:Static icons:FontAwesomeSolid.Star }" Style="{StaticResource iconMenuStyle}" />
+
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding RemoveOrAddFavoriteCommand}" />
+                        </StackLayout.GestureRecognizers>
+                        
+                        <controls:CustomIcon Glyph="{x:Static icons:FontAwesomeSolid.Star }" Style="{StaticResource iconMenuStyle}" IconColor="{Binding StarColor}" />
+                        
                     </StackLayout>
                 </controls:CustomFrame>
 
@@ -62,6 +68,11 @@
 
                     <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Padding="0,15">
                         <Frame Style="{StaticResource frameMenuStyle}">
+                            
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding OpenUrlCommand}"/>
+                            </Frame.GestureRecognizers>
+                            
                             <StackLayout>
                                 <controls:CustomIcon Glyph="{x:Static icons:FontAwesomeSolid.Link }" Style="{StaticResource iconMenuStyle}"  />
                                 <Label Text="Url" Style="{StaticResource titleMenuStyle}" />

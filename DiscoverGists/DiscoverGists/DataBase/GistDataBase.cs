@@ -38,6 +38,21 @@ namespace DiscoverGists.DataBase
             }
         }
 
+        public static Gist FindById(Gist item)
+        {
+            try
+            {
+                DateTime now = DateTime.Now;
+                item.AddedFavorite = now;
+
+                return ItemCollection.FindById(item.Id);
+            }
+            catch (Exception)
+            {
+                return new Gist();
+            }
+        }
+
         public static bool Remove(Gist item)
         {
             try

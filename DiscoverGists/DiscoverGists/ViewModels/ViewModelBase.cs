@@ -33,6 +33,15 @@ namespace DiscoverGists.ViewModels
             NavigationService = navigationService;
         }
 
+        public void SetIsLoading(bool isLoading = true, string title = "")
+        {
+            if (isLoading)
+                DialogService.ShowLoading(title);
+
+            else
+                DialogService.HideLoading();
+        }
+
         public virtual void Initialize(INavigationParameters parameters)
         {
 

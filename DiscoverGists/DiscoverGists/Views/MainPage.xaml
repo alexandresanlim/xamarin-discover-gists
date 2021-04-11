@@ -50,7 +50,7 @@
                                                 <SwipeView.LeftItems>
                                                     <SwipeItems>
                                                         <SwipeItem Text="Favorite"
-                                                                   IconImageSource="favorite.png"
+                                                                   IconImageSource="outline_star_black_24.png"
                                                                    BackgroundColor="Yellow"
                                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainPageViewModel}}, Path=AddFavoriteCommand}"
                                                                    CommandParameter="{Binding .}"
@@ -75,6 +75,19 @@
                                                         <StackLayout Grid.Column="1">
                                                             <Label Text="{Binding Owner.Login}" FontSize="{StaticResource FontSizeMedium}" TextColor="{DynamicResource textOnPrimary}" Style="{StaticResource fontSemiBold}" />
                                                             <Label Text="{Binding FilesPresentation}" TextColor="{DynamicResource textOnPrimary}" />
+
+                                                            <Grid ColumnDefinitions="auto,auto" ColumnSpacing="15">
+                                                                <StackLayout Orientation="Horizontal" Grid.Column="0">
+                                                                    <controls:CustomIcon Glyph="{x:Static icons:FontAwesomeSolid.File }" IconSize="Small" IconColor="{DynamicResource textOnPrimary}" VerticalOptions="CenterAndExpand" />
+                                                                    <Label Text="{Binding FilesCount}" TextColor="{DynamicResource textOnPrimary}" VerticalOptions="CenterAndExpand" FontSize="Small" />
+                                                                </StackLayout>
+
+                                                                <StackLayout Orientation="Horizontal" Grid.Column="1">
+                                                                    <controls:CustomIcon Glyph="{x:Static icons:FontAwesomeSolid.Comments }" IconSize="Small" IconColor="{DynamicResource textOnPrimary}" />
+                                                                    <Label Text="{Binding Comments}" TextColor="{DynamicResource textOnPrimary}" VerticalOptions="Center" FontSize="Small" />
+                                                                </StackLayout>
+                                                            </Grid>
+                                                            
                                                         </StackLayout>
 
                                                     </Grid>

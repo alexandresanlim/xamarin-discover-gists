@@ -21,6 +21,8 @@ namespace DiscoverGists.Style
 
         public Color TextOnPrimary { get; set; }
 
+        public Color TextOnSecondary { get; set; }
+
         public Color White => Color.White;
 
         public Color Black => Color.Black;
@@ -38,6 +40,7 @@ namespace DiscoverGists.Style
                 SecondaryLight = (Color)App.Current.Resources["secondaryLight"],
 
                 TextOnPrimary = (Color)App.Current.Resources["textOnPrimary"],
+                TextOnSecondary = (Color)App.Current.Resources["textOnSecondary"],
             };
         }
 
