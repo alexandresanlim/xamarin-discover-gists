@@ -16,27 +16,52 @@ namespace DiscoverGists.ViewModels
 {
     public class FavoritePageViewModel : ViewModelBase
     {
-
         public FavoritePageViewModel(INavigationService navigationService)
             : base(navigationService)
         {
-            Title = "Favorites";
+
         }
 
-        public override void OnNavigatedTo(INavigationParameters parameters)
+        public override async void OnNavigatedTo(INavigationParameters parameters)
+        {
+            try
+            {
+                SetIsLoading(true);
+
+                await Task.Delay(1000);
+
+                LoadDataCommand.Execute(null);
+            }
+            catch (Exception)
+            {
+                ShowDefaultErrorMsg();
+            }
+            finally
+            {
+                SetIsLoading(false);
+            }
+        }
+
+        public ICommand LoadDataCommand => new DelegateCommand(async () =>
+        {
+            await LoadData();
+        });
+
+        private async Task LoadData()
         {
             try
             {
                 IsBusy = true;
 
+                await Task.Delay(1000);
+
                 ResetProps();
 
-                LoadData();
+                GetListFromDataBase();
             }
             catch (Exception e)
             {
-
-                throw;
+                ShowDefaultErrorMsg();
             }
             finally
             {
@@ -48,9 +73,10 @@ namespace DiscoverGists.ViewModels
         {
             SearchPanelVisible = false;
             OriginalGistList = new List<Gist>();
+            GistList = new ObservableCollection<Gist>();
         }
 
-        private void LoadData()
+        private void GetListFromDataBase()
         {
             var list = GistDataBase.GetAll();
 
@@ -66,16 +92,18 @@ namespace DiscoverGists.ViewModels
                 {
                     item.FirstFile.ColorFromLanguage = languageColors?.FirstOrDefault(x => x.Language?.ToLower() == item?.FirstFile?.Language?.ToLower())?.Color ?? "#2980b9";
                 }
-            }    
-        }
-
-        public void Search(string text)
-        {
-            if (string.IsNullOrEmpty(text))
-                GistList = OriginalGistList.ToObservableCollection();
+            }
 
             else
-                GistList = OriginalGistList.Where(x => x.FirstFile.Filename.ToLower().Contains(text.ToLower()))?.ToObservableCollection();
+                CollectionEmptyMsg = "Você ainda não adicionou nenhum item aos seus favoritos";
+        }
+
+        public void Search(string text = "")
+        {
+            GistList = string.IsNullOrEmpty(text) ? OriginalGistList.ToObservableCollection() : OriginalGistList.Where(x => x.FirstFile.Filename.ToLower().Contains(text.ToLower()) || x.Owner.Login.ToLower().Contains(text.ToLower()))?.ToObservableCollection();
+
+            if (GistList.Count.Equals(0))
+                CollectionEmptyMsg = "Nenhum resultado encontrado 😣";
         }
 
         public DelegateCommand<Gist> NavigateToDetailCommand => new DelegateCommand<Gist>(async (gist) =>
@@ -103,6 +131,9 @@ namespace DiscoverGists.ViewModels
         public ICommand ShowSearchPanelCommand => new DelegateCommand(() =>
         {
             SearchPanelVisible = !SearchPanelVisible;
+
+            if (!SearchPanelVisible)
+                Search();
         });
 
         private ObservableCollection<Gist> _gistList;

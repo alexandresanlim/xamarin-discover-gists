@@ -43,6 +43,10 @@
             <Setter Property="Color" Value="{DynamicResource secondary}" />
         </Style>
 
+        <Style TargetType="RefreshView">
+            <Setter Property="RefreshColor" Value="{DynamicResource secondary}"/>
+        </Style>
+
         <ResourceDictionary>
             <Style x:Key="titleStyle" TargetType="Label">
                 <Setter Property="FontSize" Value="35" />

@@ -23,13 +23,18 @@
                 </LinearGradientBrush>
             </Grid.Background>
 
-            <Label Grid.Column="0" Text="Welcome!" TextColor="{DynamicResource textOnSecondary}" Style="{StaticResource titleStyle}"/>
-            <StackLayout Grid.Column="1" VerticalOptions="Center" Padding="15,10,0,10">
+            <StackLayout Grid.Column="0" Spacing="0">
+                <Label Text="Bem Vindo," TextColor="{DynamicResource textOnSecondary}" Style="{StaticResource titleStyle}"/>
+                <Label Text="Encontre Gists do GitHub e mais!" TextColor="{DynamicResource textOnSecondary}" FontSize="{StaticResource FontSizeSmall}" />
+            </StackLayout>
+            
+            <StackLayout Grid.Column="1" Padding="15,0,0,0">
                 <StackLayout.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding SettingsCommand}"/>
                 </StackLayout.GestureRecognizers>
-                <controls:CustomIcon Glyph="{x:Static icons:FontAwesomeSolid.Cog }" IconSize="Title" IconColor="{DynamicResource textOnSecondary}" />
+                <controls:CustomIcon Glyph="{x:Static icons:FontAwesomeSolid.Cog }" IconSize="Title" IconColor="{DynamicResource textOnSecondary}" VerticalOptions="CenterAndExpand" />
             </StackLayout>
+            
         </Grid>
 
         <Grid>
@@ -49,7 +54,7 @@
                                             <SwipeView>
                                                 <SwipeView.LeftItems>
                                                     <SwipeItems>
-                                                        <SwipeItem Text="Favorite"
+                                                        <SwipeItem Text="Favoritar"
                                                                    IconImageSource="outline_star_black_24.png"
                                                                    BackgroundColor="Yellow"
                                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainPageViewModel}}, Path=AddFavoriteCommand}"
@@ -120,7 +125,7 @@
                 <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
 
                     <controls:CustomIcon Glyph="{x:Static icons:FontAwesomeSolid.Star }" IconSize="Small" IconColor="{DynamicResource textOnSecondary}" />
-                    <Label Text="Favorites" FontSize="{StaticResource FontSizeSmall}" Style="{StaticResource fontSemiBold}" TextColor="{DynamicResource textOnSecondary}" VerticalOptions="CenterAndExpand" />
+                    <Label Text="Favoritos" FontSize="{StaticResource FontSizeSmall}" Style="{StaticResource fontSemiBold}" TextColor="{DynamicResource textOnSecondary}" VerticalOptions="CenterAndExpand" />
 
                 </StackLayout>
             </Frame>

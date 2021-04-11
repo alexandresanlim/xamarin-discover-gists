@@ -27,7 +27,7 @@
             <Style x:Key="frameMenuStyle" TargetType="Frame">
                 <Setter Property="CornerRadius" Value="10" />
                 <Setter Property="BackgroundColor" Value="#25000000"/>
-                <Setter Property="WidthRequest" Value="60"/>
+                <Setter Property="WidthRequest" Value="70"/>
             </Style>
 
         </ResourceDictionary>
@@ -82,14 +82,14 @@
                         <Frame Style="{StaticResource frameMenuStyle}">
                             <StackLayout>
                                 <controls:CustomIcon Glyph="{x:Static icons:FontAwesomeSolid.Comments }" Style="{StaticResource iconMenuStyle}" />
-                                <Label Text="Comments" Style="{StaticResource titleMenuStyle}" />
+                                <Label Text="Comentários" Style="{StaticResource titleMenuStyle}" />
                             </StackLayout>
                         </Frame>
 
                         <Frame Style="{StaticResource frameMenuStyle}">
                             <StackLayout>
                                 <controls:CustomIcon Glyph="{x:Static icons:FontAwesomeSolid.FolderOpen }" Style="{StaticResource iconMenuStyle}" />
-                                <Label Text="Files" Style="{StaticResource titleMenuStyle}" />
+                                <Label Text="Arquivos" Style="{StaticResource titleMenuStyle}" />
                             </StackLayout>
                         </Frame>
 

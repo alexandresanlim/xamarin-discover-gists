@@ -27,8 +27,29 @@ namespace DiscoverGists.ViewModels
             : base(navigationService)
         {
             _gitHubService = gitHubService;
+        }
 
-            LoadDataCommand.Execute(null);
+        public override async void OnNavigatedTo(INavigationParameters parameters)
+        {
+            if (parameters.GetNavigationMode() == NavigationMode.Back)
+                return;
+
+            try
+            {
+                SetIsLoading(true);
+
+                await Task.Delay(1000);
+
+                LoadDataCommand.Execute(null);
+            }
+            catch (Exception e)
+            {
+                ShowDefaultErrorMsg();
+            }
+            finally
+            {
+                SetIsLoading(false);
+            }
         }
 
         public ICommand LoadDataCommand => new DelegateCommand(async () =>
@@ -46,7 +67,7 @@ namespace DiscoverGists.ViewModels
             }
             catch (Exception e)
             {
-                DialogService.Toast("Ops! Something wrong has happened");
+                ShowDefaultErrorMsg();
             }
             finally
             {
@@ -92,7 +113,7 @@ namespace DiscoverGists.ViewModels
             }
             catch (Exception e)
             {
-                DialogService.Toast("Ops! Something wrong has happened");
+                ShowDefaultErrorMsg();
             }
             finally
             {
@@ -141,7 +162,7 @@ namespace DiscoverGists.ViewModels
         {
             GistDataBase.UpInsert(gist);
 
-            DialogService.Toast("Success!");
+            DialogService.Toast("Adicionado aos favoritos com sucesso!");
         });
 
         private ObservableCollection<Gist> _gistList;

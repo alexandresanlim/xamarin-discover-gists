@@ -29,7 +29,10 @@
             </StackLayout.Background>
 
             <Grid ColumnDefinitions="*,auto" IsVisible="{Binding SearchPanelVisible, Converter={StaticResource InvertedBooleanConverter}}">
-                <Label Grid.Column="0" Text="Your Favorites" TextColor="{DynamicResource textOnSecondary}" Style="{StaticResource titleStyle}"/>
+                <StackLayout Grid.Column="0" Spacing="0">
+                    <Label Text="Seus Favoritos," TextColor="{DynamicResource textOnSecondary}" Style="{StaticResource titleStyle}"/>
+                    <Label Text="Gists favoritos para ver mesmo offline!" TextColor="{DynamicResource textOnSecondary}" FontSize="{StaticResource FontSizeSmall}" />
+                </StackLayout>
                 <StackLayout Grid.Column="1" VerticalOptions="Center" Padding="15,10,0,10">
                     <StackLayout.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding ShowSearchPanelCommand}"/>
@@ -40,7 +43,7 @@
 
             <StackLayout IsVisible="{Binding SearchPanelVisible}" PropertyChanged="StackLayout_PropertyChanged">
                 <Grid ColumnDefinitions="*,auto">
-                    <Label Grid.Column="0" Text="Enter name to find: " Style="{StaticResource subTitleStyle}" TextColor="{DynamicResource textOnSecondary}" />
+                    <Label Grid.Column="0" Text="Digite para encontrar: " Style="{StaticResource subTitleStyle}" TextColor="{DynamicResource textOnSecondary}" />
                     <StackLayout Grid.Column="1" Padding="15,0,0,0">
                         <StackLayout.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding ShowSearchPanelCommand}"/>
@@ -50,7 +53,7 @@
                 </Grid>
 
                 <Frame BackgroundColor="#30000000" Padding="25,10" CornerRadius="35">
-                    <Entry x:Name="entrySearch" Placeholder="Type here" TextColor="{DynamicResource textOnSecondary}" TextChanged="entrySearch_TextChanged" />
+                    <Entry x:Name="entrySearch" Placeholder="Nome do arquivo ou usuário" TextColor="{DynamicResource textOnSecondary}" TextChanged="entrySearch_TextChanged" />
                 </Frame>
             </StackLayout>
 
@@ -58,11 +61,28 @@
 
         <controls:CustomFrame Grid.Row="1" BackgroundColor="{DynamicResource primary}" CornerRadius="35,0,0,0">
 
-            <RefreshView IsRefreshing="{Binding IsBusy}">
+            <RefreshView IsRefreshing="{Binding IsBusy}" Command="{Binding LoadDataCommand}">
                 <controls:CustomCollectionView ItemsSource="{Binding GistList}" Margin="15,25,0,25">
                     <controls:CustomCollectionView.ItemsLayout>
                         <LinearItemsLayout Orientation="Horizontal" />
                     </controls:CustomCollectionView.ItemsLayout>
+
+                    <CollectionView.EmptyView>
+                        <ContentView>
+                            <StackLayout HorizontalOptions="CenterAndExpand">
+                                <Label Text="{Binding CollectionEmptyMsg}"
+                                       Margin="10,25,10,10"
+                                       FontAttributes="Bold"
+                                       FontSize="18"
+                                       HorizontalOptions="Fill"
+                                       HorizontalTextAlignment="Center"
+                                       TextColor="{DynamicResource textOnPrimary}"
+                                       />
+                                
+                            </StackLayout>
+                        </ContentView>
+                    </CollectionView.EmptyView>
+
                     <controls:CustomCollectionView.ItemTemplate>
                         <DataTemplate>
 
@@ -78,7 +98,7 @@
                                             <StackLayout.GestureRecognizers>
                                                 <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:FavoritePageViewModel}}, Path=RemoveFromFavoriteCommand}" CommandParameter="{Binding .}"/>
                                             </StackLayout.GestureRecognizers>
-                                            <controls:CustomIcon Glyph="{x:Static icons:FontAwesomeSolid.Times }" IconSize="Medium" IconColor="{DynamicResource textOnSecondary}" />
+                                            <controls:CustomIcon Glyph="{x:Static icons:FontAwesomeSolid.TimesCircle }" IconSize="Medium" IconColor="{DynamicResource secondary}" />
                                         </StackLayout>
 
                                         <StackLayout Grid.Row="1" Padding="15,0,0,15" Orientation="Horizontal" Spacing="15" VerticalOptions="FillAndExpand">
@@ -98,8 +118,8 @@
                                             <StackLayout Grid.Column="1" VerticalOptions="FillAndExpand">
                                                 <Label Text="{Binding FilesPresentation}" TextColor="{DynamicResource textOnPrimary}"/>
 
-                                                <Frame BackgroundColor="#30000000" CornerRadius="30" Padding="30,10" VerticalOptions="EndAndExpand" HorizontalOptions="Start">
-                                                    <Label Text="{Binding AddedFavoritePresentation, StringFormat='Added: {0}'}" TextColor="{DynamicResource textOnPrimary}" Style="{StaticResource fontSemiBold}"/>
+                                                <Frame BackgroundColor="{DynamicResource secondary}" CornerRadius="30" Padding="30,10" VerticalOptions="EndAndExpand" HorizontalOptions="Start">
+                                                    <Label Text="{Binding AddedFavoritePresentation, StringFormat='Added: {0}'}" TextColor="{DynamicResource textOnSecondary}" Style="{StaticResource fontSemiBold}"/>
                                                 </Frame>
 
                                             </StackLayout>

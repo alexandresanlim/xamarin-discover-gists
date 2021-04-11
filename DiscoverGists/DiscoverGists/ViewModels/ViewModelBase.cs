@@ -17,8 +17,8 @@ namespace DiscoverGists.ViewModels
         private string _title;
         public string Title
         {
-            get { return _title; }
-            set { SetProperty(ref _title, value); }
+            get => _title;
+            set => SetProperty(ref _title, value);
         }
 
         private bool _isBusy;
@@ -26,6 +26,13 @@ namespace DiscoverGists.ViewModels
         {
             set => SetProperty(ref _isBusy, value);
             get => _isBusy;
+        }
+
+        private string _collectionEmptyMsg;
+        public string CollectionEmptyMsg
+        {
+            set => SetProperty(ref _collectionEmptyMsg, value);
+            get => _collectionEmptyMsg;
         }
 
         public ViewModelBase(INavigationService navigationService)
@@ -40,6 +47,11 @@ namespace DiscoverGists.ViewModels
 
             else
                 DialogService.HideLoading();
+        }
+
+        public void ShowDefaultErrorMsg()
+        {
+            DialogService.Toast("Ops! Algo de errado aconteceu, tente novamente mais tarde.");
         }
 
         public virtual void Initialize(INavigationParameters parameters)
