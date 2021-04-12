@@ -27,7 +27,8 @@
             <Style x:Key="frameMenuStyle" TargetType="Frame">
                 <Setter Property="CornerRadius" Value="10" />
                 <Setter Property="BackgroundColor" Value="#25000000"/>
-                <Setter Property="WidthRequest" Value="70"/>
+                <Setter Property="WidthRequest" Value="80"/>
+                <Setter Property="Padding" Value="15,25"/>
             </Style>
 
         </ResourceDictionary>
