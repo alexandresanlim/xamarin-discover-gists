@@ -20,8 +20,6 @@
  <img width='300'  src="https://github.com/alexandresanlim/DiscoverGists/blob/master/DiscoverGists/DiscoverGists/Src/Screenshots/Android/4.png?raw=true"/>
   
 
-
-
 # Build Status
 [![Build status](https://build.appcenter.ms/v0.1/apps/f4d395a4-2ccf-43ea-bd29-1cca0187cf34/branches/master/badge)](https://appcenter.ms)
 
