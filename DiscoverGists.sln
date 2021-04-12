@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31005.135
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiscoverGists", "DiscoverGists\DiscoverGists\DiscoverGists.csproj", "{9909A518-F26D-40A0-A2E6-4B13DA70CEC6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiscoverGists", "DiscoverGists\DiscoverGists\DiscoverGists.csproj", "{9909A518-F26D-40A0-A2E6-4B13DA70CEC6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiscoverGists.Android", "DiscoverGists\DiscoverGists.Android\DiscoverGists.Android.csproj", "{8015BDA2-D551-41E0-B446-DDFB26C93439}"
 EndProject
@@ -184,6 +184,7 @@ Global
 		{377A67BB-5A03-42F8-9167-F1C6778B4FE9}.Debug|x64.ActiveCfg = Debug|iPhoneSimulator
 		{377A67BB-5A03-42F8-9167-F1C6778B4FE9}.Debug|x86.ActiveCfg = Debug|iPhoneSimulator
 		{377A67BB-5A03-42F8-9167-F1C6778B4FE9}.Release|Any CPU.ActiveCfg = Release|iPhoneSimulator
+		{377A67BB-5A03-42F8-9167-F1C6778B4FE9}.Release|Any CPU.Build.0 = Release|iPhoneSimulator
 		{377A67BB-5A03-42F8-9167-F1C6778B4FE9}.Release|ARM.ActiveCfg = Release|iPhoneSimulator
 		{377A67BB-5A03-42F8-9167-F1C6778B4FE9}.Release|iPhone.ActiveCfg = Release|iPhone
 		{377A67BB-5A03-42F8-9167-F1C6778B4FE9}.Release|iPhone.Build.0 = Release|iPhone

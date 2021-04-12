@@ -30,29 +30,14 @@ namespace DiscoverGists.ViewModels
             _gitHubService = gitHubService;
         }
 
-        public override async void OnNavigatedTo(INavigationParameters parameters)
+        public override void OnNavigatedTo(INavigationParameters parameters)
         {
-            if (parameters.GetNavigationMode() == NavigationMode.Back)
+            if (parameters.GetNavigationMode() == NavigationMode.Back && GistList?.Count > 0)
                 return;
 
-            try
-            {
-                //SetIsLoading(true);
+            ResetProps();
 
-                //await Task.Delay(1000);
-
-                ResetProps();
-
-                await LoadData();
-            }
-            catch (Exception e)
-            {
-                ShowDefaultErrorMsg();
-            }
-            finally
-            {
-                //SetIsLoading(false);
-            }
+            IsBusy = true;
         }
 
         private void ResetProps()
@@ -62,18 +47,11 @@ namespace DiscoverGists.ViewModels
 
         public ICommand LoadDataCommand => new DelegateCommand(async () =>
         {
-            await LoadData();
-        });
-
-        private async Task LoadData()
-        {
             try
             {
-                IsBusy = true;
-
-                await GetGistListFromService();
+                await LoadData();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 ShowDefaultErrorMsg();
             }
@@ -81,6 +59,11 @@ namespace DiscoverGists.ViewModels
             {
                 IsBusy = false;
             }
+        });
+
+        private async Task LoadData()
+        {
+            await GetGistListFromService();
         }
 
         private async Task GetGistListFromService()

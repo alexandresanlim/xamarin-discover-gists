@@ -25,15 +25,35 @@ namespace DiscoverGists.ViewModels
 
         public override async void OnNavigatedTo(INavigationParameters parameters)
         {
-            if (parameters.GetNavigationMode() == NavigationMode.Back)
+            if (parameters.GetNavigationMode() == NavigationMode.Back && GistList?.Count > 0)
                 return;
 
+            ResetProps();
+
+            IsBusy = true;
+
+            //try
+            //{
+            //    //SetIsLoading(true);
+
+            //    //await Task.Delay(1000);
+
+            //    await LoadData();
+            //}
+            //catch (Exception)
+            //{
+            //    ShowDefaultErrorMsg();
+            //}
+            //finally
+            //{
+            //    //SetIsLoading(false);
+            //}
+        }
+
+        public ICommand LoadDataCommand => new DelegateCommand(async () =>
+        {
             try
             {
-                //SetIsLoading(true);
-
-                //await Task.Delay(1000);
-
                 await LoadData();
             }
             catch (Exception)
@@ -42,35 +62,32 @@ namespace DiscoverGists.ViewModels
             }
             finally
             {
-                //SetIsLoading(false);
+                IsBusy = false;
             }
-        }
-
-        public ICommand LoadDataCommand => new DelegateCommand(async () =>
-        {
-            await LoadData();
         });
 
         private async Task LoadData()
         {
-            try
-            {
-                IsBusy = true;
+            GetListFromDataBase();
 
-                await Task.Delay(1000);
+            //try
+            //{
+            //    IsBusy = true;
 
-                ResetProps();
+            //    await Task.Delay(1000);
 
-                GetListFromDataBase();
-            }
-            catch (Exception e)
-            {
-                ShowDefaultErrorMsg();
-            }
-            finally
-            {
-                IsBusy = false;
-            }
+            //    ResetProps();
+
+            //    GetListFromDataBase();
+            //}
+            //catch (Exception e)
+            //{
+            //    ShowDefaultErrorMsg();
+            //}
+            //finally
+            //{
+            //    IsBusy = false;
+            //}
         }
 
         private void ResetProps()
@@ -90,6 +107,10 @@ namespace DiscoverGists.ViewModels
             if (gistList == null || gistList.Count.Equals(0))
             {
                 EndList = true;
+
+                if (Skip.Equals(0))
+                    CollectionEmptyMsg = "Você ainda não adicionou nenhum item aos seus favoritos";
+
                 return;
             }
 
@@ -113,9 +134,6 @@ namespace DiscoverGists.ViewModels
 
                 OriginalGistList = GistList.ToList();
             }
-
-            else
-                CollectionEmptyMsg = "Você ainda não adicionou nenhum item aos seus favoritos";
         }
 
         public void Search(string text = "")
