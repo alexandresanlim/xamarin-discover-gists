@@ -11,13 +11,13 @@
  
  
 ## 📃 Lista de Gists com suporta a Dark Mode 
-<img width="300" src="https://github.com/alexandresanlim/DiscoverGists/blob/master/DiscoverGists/DiscoverGists/Src/Screenshots/Android/0.png?raw=true"/> <img width='300' src="https://github.com/alexandresanlim/DiscoverGists/blob/master/DiscoverGists/DiscoverGists/Src/Screenshots/Android/1.png?raw=true"/>
+<img width="250" src="https://github.com/alexandresanlim/DiscoverGists/blob/master/DiscoverGists/DiscoverGists/Src/Screenshots/Android/0.png?raw=true"/> <img width='250' src="https://github.com/alexandresanlim/DiscoverGists/blob/master/DiscoverGists/DiscoverGists/Src/Screenshots/Android/1.png?raw=true"/>
  
  ## ⭐ Adicione aos seus favoritos
- <img width='300'  src="https://github.com/alexandresanlim/DiscoverGists/blob/master/DiscoverGists/DiscoverGists/Src/Screenshots/Android/2.png?raw=true"/> <img width='300'  src="https://github.com/alexandresanlim/DiscoverGists/blob/master/DiscoverGists/DiscoverGists/Src/Screenshots/Android/3.png?raw=true"/>
+ <img width='250'  src="https://github.com/alexandresanlim/DiscoverGists/blob/master/DiscoverGists/DiscoverGists/Src/Screenshots/Android/2.png?raw=true"/> <img width='250'  src="https://github.com/alexandresanlim/DiscoverGists/blob/master/DiscoverGists/DiscoverGists/Src/Screenshots/Android/3.png?raw=true"/> <img width='250'  src="https://github.com/alexandresanlim/DiscoverGists/blob/master/DiscoverGists/DiscoverGists/Src/Screenshots/Android/4.png?raw=true"/> <img width='250'  src="https://github.com/alexandresanlim/DiscoverGists/blob/master/DiscoverGists/DiscoverGists/Src/Screenshots/Android/5.png?raw=true"/>
  
  ## 🕵️‍♀️ Veja detalhes
- <img width='300'  src="https://github.com/alexandresanlim/DiscoverGists/blob/master/DiscoverGists/DiscoverGists/Src/Screenshots/Android/4.png?raw=true"/>
+ <img width='250'  src="https://github.com/alexandresanlim/DiscoverGists/blob/master/DiscoverGists/DiscoverGists/Src/Screenshots/Android/6.png?raw=true"/> <img width='250'  src="https://github.com/alexandresanlim/DiscoverGists/blob/master/DiscoverGists/DiscoverGists/Src/Screenshots/Android/7.png?raw=true"/>
   
 
 # Build Status
