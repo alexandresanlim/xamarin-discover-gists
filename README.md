@@ -2,7 +2,7 @@
 <p align='center'>Veja os principais gists e adicione nos seus favoritos para ver mesmo offline. </p>
 
 <p align='center'> 
-  <img width='200' src='https://raw.githubusercontent.com/alexandresanlim/DiscoverGists/master/DiscoverGists/DiscoverGists.Android/Resources/drawable/splash.png' />
+  <a href='https://install.appcenter.ms/users/alexandre.sanlim/apps/discovergists/distribution_groups/public'><img width='250' src='https://raw.githubusercontent.com/alexandresanlim/DiscoverGists/master/DiscoverGists/DiscoverGists.Android/Resources/drawable/splash.png' /> </a>
  </p>
  
  <p align='center'> 
