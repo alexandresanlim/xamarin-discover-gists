@@ -1,5 +1,5 @@
 <h1 align='center'> Discover Gists </h1>
-<p align='center'> Aplicativo gerador de QR Code offline para pagamento e gerenciador de chaves. </p>
+<p align='center'>Veja os principais gists e adicione nos seus favoritos para ver mesmo offline. </p>
 
 <p align='center'> 
   <img width='200' src='https://raw.githubusercontent.com/alexandresanlim/DiscoverGists/master/DiscoverGists/DiscoverGists.Android/Resources/drawable/splash.png' />
