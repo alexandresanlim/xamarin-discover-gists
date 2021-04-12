@@ -3,6 +3,7 @@ using LiteDB;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 
 namespace DiscoverGists.DataBase
@@ -11,11 +12,23 @@ namespace DiscoverGists.DataBase
     {
         public static ILiteCollection<Gist> ItemCollection => GetDatabase.GetCollection<Gist>();
 
-        public static List<Gist> GetAll()
+        public static List<Gist> GetAll(int skip)
         {
             try
             {
-                return ItemCollection.FindAll().ToList();
+                return ItemCollection.FindAll().Skip(skip).Take(5).ToList();
+            }
+            catch (Exception)
+            {
+                return new List<Gist>();
+            }
+        }
+
+        public static List<Gist> Find(Expression<Func<Gist, bool>> predicate)
+        {
+            try
+            {
+                return ItemCollection.Find(predicate).ToList();
             }
             catch (Exception)
             {

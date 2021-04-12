@@ -1,5 +1,6 @@
 ﻿using DiscoverGists.DataBase;
 using DiscoverGists.Extentions;
+using DiscoverGists.Helpers;
 using DiscoverGists.Models;
 using DiscoverGists.Views;
 using Prism.Commands;
@@ -24,13 +25,16 @@ namespace DiscoverGists.ViewModels
 
         public override async void OnNavigatedTo(INavigationParameters parameters)
         {
+            if (parameters.GetNavigationMode() == NavigationMode.Back)
+                return;
+
             try
             {
-                SetIsLoading(true);
+                //SetIsLoading(true);
 
-                await Task.Delay(1000);
+                //await Task.Delay(1000);
 
-                LoadDataCommand.Execute(null);
+                await LoadData();
             }
             catch (Exception)
             {
@@ -38,7 +42,7 @@ namespace DiscoverGists.ViewModels
             }
             finally
             {
-                SetIsLoading(false);
+                //SetIsLoading(false);
             }
         }
 
@@ -74,24 +78,40 @@ namespace DiscoverGists.ViewModels
             SearchPanelVisible = false;
             OriginalGistList = new List<Gist>();
             GistList = new ObservableCollection<Gist>();
+            LanguageColors = Helpers.LanguageColors.GetList();
+            Skip = 0;
+            EndList = false;
         }
 
         private void GetListFromDataBase()
         {
-            var list = GistDataBase.GetAll();
+            var gistList = GistDataBase.GetAll(Skip);
 
-            if (list != null && list.Count > 0)
+            if (gistList == null || gistList.Count.Equals(0))
             {
-                OriginalGistList = list;
+                EndList = true;
+                return;
+            }
 
-                GistList = OriginalGistList.ToObservableCollection();
-
-                var languageColors = LanguageColors.GetList();
-
-                foreach (var item in GistList)
+            if (gistList != null && gistList.Count > 0)
+            {
+                foreach (var item in gistList)
                 {
-                    item.FirstFile.ColorFromLanguage = languageColors?.FirstOrDefault(x => x.Language?.ToLower() == item?.FirstFile?.Language?.ToLower())?.Color ?? "#2980b9";
+                    item.FirstFile.ColorFromLanguage = LanguageColors?.FirstOrDefault(x => x.Language?.ToLower() == item?.FirstFile?.Language?.ToLower())?.Color ?? "#2980b9";
                 }
+
+                if (GistList == null || GistList.Count.Equals(0))
+                    GistList = gistList.ToObservableCollection();
+
+                else
+                {
+                    foreach (var item in gistList)
+                    {
+                        GistList.Add(item);
+                    }
+                }
+
+                OriginalGistList = GistList.ToList();
             }
 
             else
@@ -100,11 +120,36 @@ namespace DiscoverGists.ViewModels
 
         public void Search(string text = "")
         {
-            GistList = string.IsNullOrEmpty(text) ? OriginalGistList.ToObservableCollection() : OriginalGistList.Where(x => x.FirstFile.Filename.ToLower().Contains(text.ToLower()) || x.Owner.Login.ToLower().Contains(text.ToLower()))?.ToObservableCollection();
+            GistList = string.IsNullOrEmpty(text) ? OriginalGistList.ToObservableCollection() : GistDataBase.Find(x => x.Owner.Login.ToLower().Contains(text.ToLower()))?.ToObservableCollection();
 
             if (GistList.Count.Equals(0))
                 CollectionEmptyMsg = "Nenhum resultado encontrado 😣";
         }
+
+        public ICommand LoadMoreCommand => new DelegateCommand(async () =>
+        {
+            try
+            {
+                if (IsLoad || IsBusy || EndList)
+                    return;
+
+                IsLoad = true;
+
+                await Task.Delay(2000);
+
+                Skip += 5;
+
+                GetListFromDataBase();
+            }
+            catch (Exception e)
+            {
+                ShowDefaultErrorMsg();
+            }
+            finally
+            {
+                IsLoad = false;
+            }
+        });
 
         public DelegateCommand<Gist> NavigateToDetailCommand => new DelegateCommand<Gist>(async (gist) =>
         {
@@ -151,5 +196,11 @@ namespace DiscoverGists.ViewModels
             set => SetProperty(ref _searchPanelVisible, value);
             get => _searchPanelVisible;
         }
+
+        public int Skip { get; set; }
+
+        public bool EndList { get; set; }
+
+        public List<LanguageColors> LanguageColors { get; set; }
     }
 }

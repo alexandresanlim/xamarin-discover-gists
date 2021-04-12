@@ -22,6 +22,9 @@ namespace DiscoverGists.Models
         [JsonProperty("size")]
         public long Size { get; set; }
 
+        [JsonProperty("content")]
+        public string Content { get; set; }
+
         [JsonIgnore]
         public string ColorFromLanguage { get; set; }
 

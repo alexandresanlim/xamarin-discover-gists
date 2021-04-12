@@ -1,18 +1,21 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 
-public class LanguageColors
+
+namespace DiscoverGists.Helpers
 {
-    [JsonProperty("language")]
-    public string Language { get; set; }
-
-    [JsonProperty("color")]
-    public string Color { get; set; }
-
-    public static List<LanguageColors> GetList()
+    public class LanguageColors
     {
-        var json =
-            @"[
+        [JsonProperty("language")]
+        public string Language { get; set; }
+
+        [JsonProperty("color")]
+        public string Color { get; set; }
+
+        public static List<LanguageColors> GetList()
+        {
+            var json =
+                @"[
               {language: 'Mercury', color: '#ff2b2b'},
               {language:'TypeScript', color: '#2b7489'},
               {language:'PureBasic', color: '#5a6986'},
@@ -213,9 +216,10 @@ public class LanguageColors
               {language:'nesC', color: '#94B0C7'},{language:'Text', color: '#8e44ad'},{language:'Markdown', color: '#2c3e50'},{language:'XML', color: '#d35400'},{language:'Json', color: '#f39c12'},{language:'C#', color: '#178600'}
             ]";
 
-        var gists = JsonConvert.DeserializeObject<List<LanguageColors>>(json);
+            var gists = JsonConvert.DeserializeObject<List<LanguageColors>>(json);
 
-        return gists;
+            return gists;
+        }
     }
 }
 

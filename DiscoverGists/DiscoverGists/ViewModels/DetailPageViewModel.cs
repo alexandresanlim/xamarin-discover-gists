@@ -1,6 +1,7 @@
 ﻿using DiscoverGists.DataBase;
 using DiscoverGists.Extentions;
 using DiscoverGists.Models;
+using DiscoverGists.Services.Interfaces;
 using DiscoverGists.Views;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -17,8 +18,11 @@ namespace DiscoverGists.ViewModels
 {
     public class DetailPageViewModel : ViewModelBase
     {
-        public DetailPageViewModel(INavigationService navigationService) : base(navigationService)
+        private IGitHubService _gitHubService { get; }
+
+        public DetailPageViewModel(INavigationService navigationService, IGitHubService gitHubService) : base(navigationService)
         {
+            _gitHubService = gitHubService;
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
@@ -38,7 +42,7 @@ namespace DiscoverGists.ViewModels
 
                 if (FileList.Count > 1)
                 {
-                    var languageColors = LanguageColors.GetList();
+                    var languageColors = Helpers.LanguageColors.GetList();
 
                     foreach (var item in FileList)
                     {
@@ -98,16 +102,6 @@ namespace DiscoverGists.ViewModels
                 GistDataBase.UpInsert(Gist);
 
             LoadIsFavorite();
-        });
-
-        public ICommand OpenCommentsCommand => new DelegateCommand(() =>
-        {
-
-        });
-
-        public ICommand OpenFilesCommand => new DelegateCommand(() =>
-        {
-
         });
 
         private Gist _gist;

@@ -80,6 +80,9 @@
                         </Frame>
 
                         <Frame Style="{StaticResource frameMenuStyle}">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding CommingSoonCommand}"/>
+                            </Frame.GestureRecognizers>
                             <StackLayout>
                                 <controls:CustomIcon Glyph="{x:Static icons:FontAwesomeSolid.Comments }" Style="{StaticResource iconMenuStyle}" />
                                 <Label Text="Comentários" Style="{StaticResource titleMenuStyle}" />
@@ -87,6 +90,9 @@
                         </Frame>
 
                         <Frame Style="{StaticResource frameMenuStyle}">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding CommingSoonCommand}"/>
+                            </Frame.GestureRecognizers>
                             <StackLayout>
                                 <controls:CustomIcon Glyph="{x:Static icons:FontAwesomeSolid.FolderOpen }" Style="{StaticResource iconMenuStyle}" />
                                 <Label Text="Arquivos" Style="{StaticResource titleMenuStyle}" />

@@ -1,5 +1,6 @@
 ﻿using DiscoverGists.DataBase;
 using DiscoverGists.Extentions;
+using DiscoverGists.Helpers;
 using DiscoverGists.Models;
 using DiscoverGists.Services;
 using DiscoverGists.Services.Interfaces;
@@ -36,11 +37,13 @@ namespace DiscoverGists.ViewModels
 
             try
             {
-                SetIsLoading(true);
+                //SetIsLoading(true);
 
-                await Task.Delay(1000);
+                //await Task.Delay(1000);
 
-                LoadDataCommand.Execute(null);
+                ResetProps();
+
+                await LoadData();
             }
             catch (Exception e)
             {
@@ -48,8 +51,13 @@ namespace DiscoverGists.ViewModels
             }
             finally
             {
-                SetIsLoading(false);
+                //SetIsLoading(false);
             }
+        }
+
+        private void ResetProps()
+        {
+            LanguageColors = Helpers.LanguageColors.GetList();
         }
 
         public ICommand LoadDataCommand => new DelegateCommand(async () =>
@@ -79,11 +87,15 @@ namespace DiscoverGists.ViewModels
         {
             var gistList = await _gitHubService.GetGistList(LastPage);
 
-            var languageColors = LanguageColors.GetList();
+            if (gistList == null || gistList.Count.Equals(0))
+            {
+                DialogService.Toast("Final da lista");
+                return;
+            }
 
             foreach (var item in gistList)
             {
-                item.FirstFile.ColorFromLanguage = languageColors?.FirstOrDefault(x => x.Language?.ToLower() == item?.FirstFile?.Language?.ToLower())?.Color ?? "#2980b9";
+                item.FirstFile.ColorFromLanguage = LanguageColors?.FirstOrDefault(x => x.Language?.ToLower() == item?.FirstFile?.Language?.ToLower())?.Color ?? "#2980b9";
             }
 
             if (LastPage == 1)
@@ -102,7 +114,7 @@ namespace DiscoverGists.ViewModels
         {
             try
             {
-                if (IsLoad)
+                if (IsLoad || IsBusy)
                     return;
 
                 IsLoad = true;
@@ -172,13 +184,8 @@ namespace DiscoverGists.ViewModels
             get => _gistList;
         }
 
-        private bool _isLoad;
-        public bool IsLoad
-        {
-            set => SetProperty(ref _isLoad, value);
-            get => _isLoad;
-        }
-
         public int LastPage { get; set; } = 1;
+
+        public List<LanguageColors> LanguageColors { get; set; }
     }
 }

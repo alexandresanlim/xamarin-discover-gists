@@ -5,6 +5,7 @@ using Prism.Navigation;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows.Input;
 
 namespace DiscoverGists.ViewModels
 {
@@ -13,6 +14,57 @@ namespace DiscoverGists.ViewModels
         protected INavigationService NavigationService { get; private set; }
 
         public IUserDialogs DialogService => UserDialogs.Instance;
+
+        public ViewModelBase(INavigationService navigationService)
+        {
+            NavigationService = navigationService;
+        }
+
+        public void SetIsLoading(bool isLoading = true, string title = "")
+        {
+            if (isLoading)
+                DialogService.ShowLoading(title);
+
+            else
+                DialogService.HideLoading();
+        }
+
+        public void ShowDefaultErrorMsg()
+        {
+            DialogService.Toast("Ops! Algo de errado aconteceu, tente novamente mais tarde.");
+        }
+
+        public ICommand CommingSoonCommand => new DelegateCommand(() =>
+        {
+            ComingSoonMsg();
+        });
+
+        public void ComingSoonMsg()
+        {
+            DialogService.Toast("Em breve!");
+        }
+
+        public virtual void Initialize(INavigationParameters parameters)
+        {
+
+        }
+
+        public virtual void OnNavigatedFrom(INavigationParameters parameters)
+        {
+
+        }
+
+        public virtual void OnNavigatedTo(INavigationParameters parameters)
+        {
+
+        }
+
+        public virtual void Destroy()
+        {
+
+        }
+
+        #region Props
 
         private string _title;
         public string Title
@@ -35,43 +87,13 @@ namespace DiscoverGists.ViewModels
             get => _collectionEmptyMsg;
         }
 
-        public ViewModelBase(INavigationService navigationService)
+        private bool _isLoad;
+        public bool IsLoad
         {
-            NavigationService = navigationService;
+            set => SetProperty(ref _isLoad, value);
+            get => _isLoad;
         }
 
-        public void SetIsLoading(bool isLoading = true, string title = "")
-        {
-            if (isLoading)
-                DialogService.ShowLoading(title);
-
-            else
-                DialogService.HideLoading();
-        }
-
-        public void ShowDefaultErrorMsg()
-        {
-            DialogService.Toast("Ops! Algo de errado aconteceu, tente novamente mais tarde.");
-        }
-
-        public virtual void Initialize(INavigationParameters parameters)
-        {
-
-        }
-
-        public virtual void OnNavigatedFrom(INavigationParameters parameters)
-        {
-
-        }
-
-        public virtual void OnNavigatedTo(INavigationParameters parameters)
-        {
-
-        }
-
-        public virtual void Destroy()
-        {
-
-        }
+        #endregion
     }
 }
