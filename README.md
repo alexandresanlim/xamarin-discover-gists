@@ -24,8 +24,11 @@
 [![Build status](https://build.appcenter.ms/v0.1/apps/f4d395a4-2ccf-43ea-bd29-1cca0187cf34/branches/master/badge)](https://appcenter.ms)
 
 # Pacotes usados
+- [Prism](https://github.com/PrismLibrary/Prism)
 - [Xamarin.Forms.PancakeView](https://github.com/sthewissen/Xamarin.Forms.PancakeView)
 - [userdialogs](https://github.com/aritchie/userdialogs)
+
+
 
 
 
