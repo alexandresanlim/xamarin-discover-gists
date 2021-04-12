@@ -10,13 +10,13 @@
 </p>
  
  
-## Lista de Gists com suporta a Dark Mode 
+## 📃 Lista de Gists com suporta a Dark Mode 
 <img width="300" src="https://github.com/alexandresanlim/DiscoverGists/blob/master/DiscoverGists/DiscoverGists/Src/Screenshots/Android/0.png?raw=true"/> <img width='300' src="https://github.com/alexandresanlim/DiscoverGists/blob/master/DiscoverGists/DiscoverGists/Src/Screenshots/Android/1.png?raw=true"/>
  
- ## Adicione aos seus favoritos
+ ## ⭐ Adicione aos seus favoritos
  <img width='300'  src="https://github.com/alexandresanlim/DiscoverGists/blob/master/DiscoverGists/DiscoverGists/Src/Screenshots/Android/2.png?raw=true"/> <img width='300'  src="https://github.com/alexandresanlim/DiscoverGists/blob/master/DiscoverGists/DiscoverGists/Src/Screenshots/Android/3.png?raw=true"/>
  
- ## Veja detalhes
+ ## 🕵️‍♀️ Veja detalhes
  <img width='300'  src="https://github.com/alexandresanlim/DiscoverGists/blob/master/DiscoverGists/DiscoverGists/Src/Screenshots/Android/4.png?raw=true"/>
   
 
