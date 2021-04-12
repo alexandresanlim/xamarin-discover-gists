@@ -8,9 +8,16 @@
  <p align='center'> 
   <a href='https://install.appcenter.ms/users/alexandre.sanlim/apps/discovergists/distribution_groups/public'><img src="https://img.shields.io/badge/Android_Apk-3DDC84?style=for-the-badge&logo=android&logoColor=white" /></a>
 </p>
-    
-<p align='center'>
-  <img width="300" src="https://github.com/alexandresanlim/DiscoverGists/blob/master/DiscoverGists/DiscoverGists/Src/Screenshots/Android/0.png?raw=true"/> <img width='300'  src="https://github.com/alexandresanlim/DiscoverGists/blob/master/DiscoverGists/DiscoverGists/Src/Screenshots/Android/1.png?raw=true"/> <img width='300'  src="https://github.com/alexandresanlim/DiscoverGists/blob/master/DiscoverGists/DiscoverGists/Src/Screenshots/Android/2.png?raw=true"/> <img width='300'  src="https://github.com/alexandresanlim/DiscoverGists/blob/master/DiscoverGists/DiscoverGists/Src/Screenshots/Android/3.png?raw=true"/> <img width='300'  src="https://github.com/alexandresanlim/DiscoverGists/blob/master/DiscoverGists/DiscoverGists/Src/Screenshots/Android/4.png?raw=true"/>
+ 
+ 
+### Lista de Gists com suporta a Dark Mode 
+<p>
+  <img width="300" src="https://github.com/alexandresanlim/DiscoverGists/blob/master/DiscoverGists/DiscoverGists/Src/Screenshots/Android/0.png?raw=true"/> <img width='300'  src="https://github.com/alexandresanlim/DiscoverGists/blob/master/DiscoverGists/DiscoverGists/Src/Screenshots/Android/1.png?raw=true"/>
+ </p>
+ 
+ ### Adicione aos seus favoritos
+ <p align='center'>
+ <img width='300'  src="https://github.com/alexandresanlim/DiscoverGists/blob/master/DiscoverGists/DiscoverGists/Src/Screenshots/Android/2.png?raw=true"/> <img width='300'  src="https://github.com/alexandresanlim/DiscoverGists/blob/master/DiscoverGists/DiscoverGists/Src/Screenshots/Android/3.png?raw=true"/> <img width='300'  src="https://github.com/alexandresanlim/DiscoverGists/blob/master/DiscoverGists/DiscoverGists/Src/Screenshots/Android/4.png?raw=true"/>
  </p>
   
 <!-- <p align='center'>
