@@ -19,10 +19,13 @@
  <p align='center'>
  <img width='300'  src="https://github.com/alexandresanlim/DiscoverGists/blob/master/DiscoverGists/DiscoverGists/Src/Screenshots/Android/2.png?raw=true"/> <img width='300'  src="https://github.com/alexandresanlim/DiscoverGists/blob/master/DiscoverGists/DiscoverGists/Src/Screenshots/Android/3.png?raw=true"/> <img width='300'  src="https://github.com/alexandresanlim/DiscoverGists/blob/master/DiscoverGists/DiscoverGists/Src/Screenshots/Android/4.png?raw=true"/>
  </p>
+ 
+  ### Veja detalhes
+ <p align='center'>
+  <img width='300'  src="https://github.com/alexandresanlim/DiscoverGists/blob/master/DiscoverGists/DiscoverGists/Src/Screenshots/Android/4.png?raw=true"/>
+ </p>
   
-<!-- <p align='center'>
-  <img width="200" src="https://github.com/alexandresanlim/XamarinUI.MyGallery/blob/master/screen/android/pixqrcodegeneratoroffline/animation.gif?raw=true"/> 
- </p> -->
+
 
 
 # Build Status
