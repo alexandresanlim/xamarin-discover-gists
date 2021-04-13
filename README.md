@@ -1,5 +1,3 @@
-<h1 align='center'> Discover Gists </h1>
-
 <p align='center'> 
   <a href='https://install.appcenter.ms/users/alexandre.sanlim/apps/discovergists/distribution_groups/public'><img width='250' src='https://raw.githubusercontent.com/alexandresanlim/DiscoverGists/master/DiscoverGists/DiscoverGists.Android/Resources/drawable/splash.png' /> </a>
  </p>
