@@ -13,7 +13,8 @@ namespace DiscoverGists.Services
             get
             {
                 const string light = "light";
-                const string dark = "light";
+
+                const string dark = "dark";
 
                 try
                 {

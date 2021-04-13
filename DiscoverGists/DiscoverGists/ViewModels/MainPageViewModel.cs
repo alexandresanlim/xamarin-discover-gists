@@ -127,7 +127,10 @@ namespace DiscoverGists.ViewModels
                 new Acr.UserDialogs.ActionSheetOption(PreferenceService.Theme == "light" ? "Dark Mode" : "Light Mode", () =>
                 {
                     PreferenceService.Theme = PreferenceService.Theme == "light" ? "dark" : "light";
+
                     App.SetThemeColorsByPreference();
+
+                    GistList.SetIsFavorite();
                 })
             };
 
