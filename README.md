@@ -5,8 +5,11 @@
  <p align='center'>Veja os principais gists e adicione aos seus favoritos, para ver mesmo offline </p>
  
  <p align='center'> 
-   Download: <a href='https://install.appcenter.ms/users/alexandre.sanlim/apps/discovergists/distribution_groups/public'><img src="https://img.shields.io/badge/Android_Apk-3DDC84?style=for-the-badge&logo=android&logoColor=white" /></a>
+   Download:
 </p>
+ <p align='center'> <a href='https://install.appcenter.ms/users/alexandre.sanlim/apps/discovergists/distribution_groups/public'><img src="https://img.shields.io/badge/Android_Apk-3DDC84?style=for-the-badge&logo=android&logoColor=white" /></a>
+</p>
+ 
  
  
 ## 📃 Lista de Gists com suporta a Dark Mode 
