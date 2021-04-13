@@ -83,6 +83,12 @@
                                                                 <Label Grid.Column="0" Text="{Binding Owner.Login}" FontSize="{StaticResource FontSizeMedium}" TextColor="{DynamicResource textOnPrimary}" Style="{StaticResource fontSemiBold}" />
                                                                 
                                                                 <StackLayout Grid.Column="1" Padding="15,5,0,0">
+                                                                    <StackLayout.GestureRecognizers>
+                                                                        <TapGestureRecognizer 
+                                                                            Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainPageViewModel}}, Path=AddFavoriteCommand}"
+                                                                            CommandParameter="{Binding .}"
+                                                                            />
+                                                                    </StackLayout.GestureRecognizers>
                                                                     <controls:CustomIcon Glyph="{x:Static icons:FontAwesomeSolid.Star }" IconSize="Subtitle" IconColor="{Binding StarColor}" />
                                                                 </StackLayout>
                                                             </Grid>
