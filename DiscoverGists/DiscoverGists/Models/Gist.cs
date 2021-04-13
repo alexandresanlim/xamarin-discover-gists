@@ -95,6 +95,14 @@ namespace DiscoverGists.Models
         }
 
         [JsonIgnore]
+        private string _actionFavoriteStarIcon;
+        public string ActionFavoriteStarIcon
+        {
+            set => SetProperty(ref _actionFavoriteStarIcon, value);
+            get => _actionFavoriteStarIcon;
+        }
+
+        [JsonIgnore]
         private Color _starColor;
         public Color StarColor
         {
@@ -151,6 +159,8 @@ namespace DiscoverGists.Models
             gist.ActionFavoriteText = gist.IsFavorite ? "Remover" : "Adicionar";
 
             gist.ActionFavoriteStarColor = gist.IsFavorite ? Color.LightGray : yellow;
+
+            gist.ActionFavoriteStarIcon = gist.IsFavorite ? "outline_delete_black_24.png" : "outline_star_black_24.png";
         }
 
         public static void RemoveOrAddGistFromFavorite(this Gist gist, Color? starColorNotFavorite = null)
