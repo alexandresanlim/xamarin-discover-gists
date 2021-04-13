@@ -1,6 +1,7 @@
 ﻿using Acr.UserDialogs;
 using DiscoverGists.DataBase;
 using DiscoverGists.Models;
+using Microsoft.AppCenter.Analytics;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;
@@ -31,9 +32,9 @@ namespace DiscoverGists.ViewModels
                 DialogService.HideLoading();
         }
 
-        public void ShowDefaultErrorMsg()
+        public void SetEvent(string text)
         {
-            DialogService.Toast("Ops! Algo de errado aconteceu, tente novamente mais tarde.");
+            Analytics.TrackEvent(text);
         }
 
         public ICommand CommingSoonCommand => new DelegateCommand(() =>

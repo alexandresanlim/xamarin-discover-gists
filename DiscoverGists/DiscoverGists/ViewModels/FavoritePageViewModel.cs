@@ -56,9 +56,9 @@ namespace DiscoverGists.ViewModels
             {
                 await LoadData();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                ShowDefaultErrorMsg();
+                ex.SendToLog();
             }
             finally
             {
@@ -161,9 +161,9 @@ namespace DiscoverGists.ViewModels
 
                 GetListFromDataBase();
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                ShowDefaultErrorMsg();
+                ex.SendToLog();
             }
             finally
             {

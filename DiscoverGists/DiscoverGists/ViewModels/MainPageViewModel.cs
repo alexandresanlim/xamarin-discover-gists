@@ -51,13 +51,15 @@ namespace DiscoverGists.ViewModels
             {
                 await LoadData();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                ShowDefaultErrorMsg();
+                ex.SendToLog();
             }
             finally
             {
                 IsBusy = false;
+
+                SetEvent("Load app");
             }
         });
 
@@ -105,9 +107,9 @@ namespace DiscoverGists.ViewModels
 
                 await GetGistListFromService();
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                ShowDefaultErrorMsg();
+                ex.SendToLog();
             }
             finally
             {
@@ -157,7 +159,18 @@ namespace DiscoverGists.ViewModels
 
         public DelegateCommand<Gist> AddFavoriteCommand => new DelegateCommand<Gist>((gist) =>
         {
-            gist.RemoveOrAddGistFromFavorite();
+            try
+            {
+                gist.RemoveOrAddGistFromFavorite();
+            }
+            catch (Exception ex)
+            {
+                ex.SendToLog();
+            }
+            finally
+            {
+                SetEvent("Add favorite");
+            }
         });
 
         private ObservableCollection<Gist> _gistList;

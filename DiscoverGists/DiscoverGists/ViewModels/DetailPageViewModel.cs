@@ -62,9 +62,9 @@ namespace DiscoverGists.ViewModels
 
                 await NavigationService.NavigateAsync(nameof(WebViewPage), navigationParams);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                ShowDefaultErrorMsg();
+                ex.SendToLog();
             }
             finally
             {

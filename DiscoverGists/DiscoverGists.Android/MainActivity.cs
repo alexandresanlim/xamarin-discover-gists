@@ -3,6 +3,9 @@ using Android.Content.PM;
 using Android.OS;
 using Android.Views;
 using DiscoverGists.Interfaces;
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
 using Prism;
 using Prism.Ioc;
 using Xamarin.Essentials;
@@ -26,6 +29,7 @@ namespace DiscoverGists.Droid
 
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             Acr.UserDialogs.UserDialogs.Init(this);
+            AppCenter.Start("57ee3681-6252-43ef-9548-6a61d64b55cd", typeof(Analytics), typeof(Crashes));
             CurrentWindow = (this).Window;
             DependencyService.Register<IStatusBar, StatusBarChanger>();
 
