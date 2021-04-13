@@ -2,10 +2,10 @@
   <a href='https://install.appcenter.ms/users/alexandre.sanlim/apps/discovergists/distribution_groups/public'><img width='250' src='https://raw.githubusercontent.com/alexandresanlim/DiscoverGists/master/DiscoverGists/DiscoverGists.Android/Resources/drawable/splash.png' /> </a>
  </p>
  
- <p align='center'>Veja os principais gists e adicione aos seus favoritos, para ver mesmo offline. Download: </p>
+ <p align='center'>Veja os principais gists e adicione aos seus favoritos, para ver mesmo offline </p>
  
  <p align='center'> 
-  <a href='https://install.appcenter.ms/users/alexandre.sanlim/apps/discovergists/distribution_groups/public'><img src="https://img.shields.io/badge/Android_Apk-3DDC84?style=for-the-badge&logo=android&logoColor=white" /></a>
+   Download: <a href='https://install.appcenter.ms/users/alexandre.sanlim/apps/discovergists/distribution_groups/public'><img src="https://img.shields.io/badge/Android_Apk-3DDC84?style=for-the-badge&logo=android&logoColor=white" /></a>
 </p>
  
  
