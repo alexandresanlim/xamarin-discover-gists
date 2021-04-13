@@ -55,9 +55,6 @@ namespace DiscoverGists.DataBase
         {
             try
             {
-                DateTime now = DateTime.Now;
-                item.AddedFavorite = now;
-
                 return ItemCollection.FindById(item.Id);
             }
             catch (Exception)

@@ -43,17 +43,8 @@ namespace DiscoverGists.ViewModels
                 if (FileList.Count > 1)
                     FileList.SetLanguageColor();
 
-                LoadIsFavorite();
+                Gist.SetIsFavorite(App.ThemeColors.TextOnSecondary);
             }
-        }
-
-        private void LoadIsFavorite()
-        {
-            var gist = GistDataBase.FindById(Gist);
-
-            IsFavorite = !string.IsNullOrEmpty(gist?.Id);
-
-            StarColor = IsFavorite ? Color.Yellow : App.ThemeColors.TextOnSecondary;
         }
 
         public ICommand OpenUrlCommand => new DelegateCommand(async () =>
@@ -73,7 +64,7 @@ namespace DiscoverGists.ViewModels
             }
             catch (Exception e)
             {
-                //e.SendToLog();
+                ShowDefaultErrorMsg();
             }
             finally
             {
@@ -83,18 +74,7 @@ namespace DiscoverGists.ViewModels
 
         public ICommand RemoveOrAddFavoriteCommand => new DelegateCommand(async () =>
         {
-            var confirm = await DialogService.ConfirmAsync("Confirm " + (IsFavorite ? "remove" : "add") + " favorite?", "Confirmation");
-
-            if (!confirm)
-                return;
-
-            if (IsFavorite)
-                GistDataBase.Remove(Gist);
-
-            else
-                GistDataBase.UpInsert(Gist);
-
-            LoadIsFavorite();
+            Gist.RemoveOrAddGistFromFavorite(App.ThemeColors.TextOnSecondary);
         });
 
         private Gist _gist;
@@ -110,14 +90,5 @@ namespace DiscoverGists.ViewModels
             set => SetProperty(ref _fileList, value);
             get => _fileList;
         }
-
-        private Color _starColor;
-        public Color StarColor
-        {
-            set => SetProperty(ref _starColor, value);
-            get => _starColor;
-        }
-
-        public bool IsFavorite { get; set; }
     }
 }

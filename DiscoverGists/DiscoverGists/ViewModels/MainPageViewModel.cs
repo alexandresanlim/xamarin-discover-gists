@@ -76,10 +76,7 @@ namespace DiscoverGists.ViewModels
                 return;
             }
 
-            //foreach (var item in gistList)
-            //{
-            //    item.FirstFile.ColorFromLanguage = LanguageColors?.FirstOrDefault(x => x.Language?.ToLower() == item?.FirstFile?.Language?.ToLower())?.Color ?? "#2980b9";
-            //}
+            gistList.SetIsFavorite();
 
             gistList.Select(x => x.FirstFile).ToList().SetLanguageColor();
 
@@ -157,9 +154,7 @@ namespace DiscoverGists.ViewModels
 
         public DelegateCommand<Gist> AddFavoriteCommand => new DelegateCommand<Gist>((gist) =>
         {
-            GistDataBase.UpInsert(gist);
-
-            DialogService.Toast("Adicionado aos favoritos com sucesso!");
+            gist.RemoveOrAddGistFromFavorite();
         });
 
         private ObservableCollection<Gist> _gistList;

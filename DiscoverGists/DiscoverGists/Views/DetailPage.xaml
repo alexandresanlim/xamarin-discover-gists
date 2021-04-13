@@ -54,7 +54,7 @@
                             <TapGestureRecognizer Command="{Binding RemoveOrAddFavoriteCommand}" />
                         </StackLayout.GestureRecognizers>
                         
-                        <controls:CustomIcon Glyph="{x:Static icons:FontAwesomeSolid.Star }" Style="{StaticResource iconMenuStyle}" IconColor="{Binding StarColor}" />
+                        <controls:CustomIcon Glyph="{x:Static icons:FontAwesomeSolid.Star }" Style="{StaticResource iconMenuStyle}" IconColor="{Binding Gist.StarColor}" />
                         
                     </StackLayout>
                 </controls:CustomFrame>

@@ -1,5 +1,8 @@
-﻿using LiteDB;
+﻿using Acr.UserDialogs;
+using DiscoverGists.DataBase;
+using LiteDB;
 using Newtonsoft.Json;
+using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +11,7 @@ using Xamarin.Forms;
 
 namespace DiscoverGists.Models
 {
-    public class Gist
+    public class Gist : BindableBase
     {
         [JsonProperty("id"), BsonId]
         public string Id { get; set; }
@@ -67,6 +70,38 @@ namespace DiscoverGists.Models
         [JsonIgnore]
         public DateTime AddedFavorite { get; set; }
 
+        [JsonIgnore]
+        private bool _isFavorite;
+        public bool IsFavorite
+        {
+            set => SetProperty(ref _isFavorite, value);
+            get => _isFavorite;
+        }
+
+        [JsonIgnore]
+        private string _actionFavoriteText;
+        public string ActionFavoriteText
+        {
+            set => SetProperty(ref _actionFavoriteText, value);
+            get => _actionFavoriteText;
+        }
+
+        [JsonIgnore]
+        private Color _actionFavoriteStarColor;
+        public Color ActionFavoriteStarColor
+        {
+            set => SetProperty(ref _actionFavoriteStarColor, value);
+            get => _actionFavoriteStarColor;
+        }
+
+        [JsonIgnore]
+        private Color _starColor;
+        public Color StarColor
+        {
+            set => SetProperty(ref _starColor, value);
+            get => _starColor;
+        }
+
         [JsonIgnore, BsonIgnore]
         public File FirstFile => Files?.Select(x => x.Value)?.FirstOrDefault() ?? new File();
 
@@ -93,5 +128,53 @@ namespace DiscoverGists.Models
 
         [JsonIgnore, BsonIgnore]
         public string AddedFavoritePresentation => AddedFavorite.ToString("dd-MMM-yy");
+    }
+
+    public static class GistExtention
+    {
+        public static void SetIsFavorite(this IList<Gist> gists)
+        {
+            foreach (var item in gists)
+            {
+                item.SetIsFavorite();
+            }
+        }
+
+        public static void SetIsFavorite(this Gist gist, Color? starColorNotFavorite = null)
+        {
+            gist.IsFavorite = !string.IsNullOrEmpty(GistDataBase.FindById(gist)?.Id);
+
+            var yellow = Color.FromHex("#f1c40f");
+
+            gist.StarColor = gist.IsFavorite ? yellow : (starColorNotFavorite ?? App.ThemeColors.TextOnPrimary);
+
+            gist.ActionFavoriteText = gist.IsFavorite ? "Remover" : "Adicionar";
+
+            gist.ActionFavoriteStarColor = gist.IsFavorite ? Color.LightGray : yellow;
+        }
+
+        public static void RemoveOrAddGistFromFavorite(this Gist gist, Color? starColorNotFavorite = null)
+        {
+            //var confirm = await UserDialogs.Instance.ConfirmAsync("Confirma " + (gist.IsFavorite ? "remover" : "adicionar") + " gist dos favoritos?", "Confirmação");
+
+            //if (!confirm)
+            //    return;
+
+            if (gist.IsFavorite)
+            { 
+                GistDataBase.Remove(gist);
+
+                UserDialogs.Instance.Toast(gist.FirstFile.Filename + " removido dos favoritos");
+            }
+
+            else
+            { 
+                GistDataBase.UpInsert(gist);
+
+                UserDialogs.Instance.Toast(gist.FirstFile.Filename + " adicionado aos favoritos");
+            }
+
+            gist.SetIsFavorite(starColorNotFavorite);
+        }
     }
 }

@@ -54,9 +54,9 @@
                                             <SwipeView>
                                                 <SwipeView.LeftItems>
                                                     <SwipeItems>
-                                                        <SwipeItem Text="Favoritar"
+                                                        <SwipeItem Text="{Binding ActionFavoriteText}"
                                                                    IconImageSource="outline_star_black_24.png"
-                                                                   BackgroundColor="Yellow"
+                                                                   BackgroundColor="{Binding ActionFavoriteStarColor}"
                                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainPageViewModel}}, Path=AddFavoriteCommand}"
                                                                    CommandParameter="{Binding .}"
                                                                    />
@@ -71,14 +71,22 @@
 
                                                     <BoxView Grid.Column="0" BackgroundColor="{Binding FirstFile.ColorFromLanguage}" WidthRequest="15"/>
 
-                                                    <Grid ColumnDefinitions="auto,*" ColumnSpacing="15" Padding="10">
+                                                    <Grid ColumnDefinitions="auto,*" ColumnSpacing="15" Padding="10" HorizontalOptions="FillAndExpand">
 
                                                         <Frame Grid.Column="0" Padding="0" BorderColor="Black" CornerRadius="50" HeightRequest="60" WidthRequest="60" IsClippedToBounds="True" HorizontalOptions="Center" VerticalOptions="Start">
                                                             <Image Source="{Binding Owner.AvatarUrl}" WidthRequest="100" HeightRequest="100" />
                                                         </Frame>
 
                                                         <StackLayout Grid.Column="1">
-                                                            <Label Text="{Binding Owner.Login}" FontSize="{StaticResource FontSizeMedium}" TextColor="{DynamicResource textOnPrimary}" Style="{StaticResource fontSemiBold}" />
+                                                            
+                                                            <Grid ColumnDefinitions="*,auto">
+                                                                <Label Grid.Column="0" Text="{Binding Owner.Login}" FontSize="{StaticResource FontSizeMedium}" TextColor="{DynamicResource textOnPrimary}" Style="{StaticResource fontSemiBold}" />
+                                                                
+                                                                <StackLayout Grid.Column="1" Padding="15,5,0,0">
+                                                                    <controls:CustomIcon Glyph="{x:Static icons:FontAwesomeSolid.Star }" IconSize="Subtitle" IconColor="{Binding StarColor}" />
+                                                                </StackLayout>
+                                                            </Grid>
+                                                            
                                                             <Label Text="{Binding FilesPresentation}" TextColor="{DynamicResource textOnPrimary}" />
 
                                                             <Grid ColumnDefinitions="auto,auto" ColumnSpacing="15">

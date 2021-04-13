@@ -183,12 +183,7 @@ namespace DiscoverGists.ViewModels
 
         public DelegateCommand<Gist> RemoveFromFavoriteCommand => new DelegateCommand<Gist>(async (gist) =>
         {
-            var confirm = await DialogService.ConfirmAsync("Confirm remove?", "Confirmation");
-
-            if (!confirm)
-                return;
-
-            GistDataBase.Remove(gist);
+            gist.RemoveOrAddGistFromFavorite();
 
             GistList.Remove(gist);
 
