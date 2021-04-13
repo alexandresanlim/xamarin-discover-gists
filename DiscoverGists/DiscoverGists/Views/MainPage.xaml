@@ -25,7 +25,7 @@
 
             <StackLayout Grid.Column="0" Spacing="0">
                 <Label Text="Bem Vindo," TextColor="{DynamicResource textOnSecondary}" Style="{StaticResource titleStyle}"/>
-                <Label Text="Encontre Gists do GitHub e mais!" TextColor="{DynamicResource textOnSecondary}" FontSize="{StaticResource FontSizeSmall}" />
+                <Label Text="Encontre Gists e salve os seus favoritos!" TextColor="{DynamicResource textOnSecondary}" FontSize="{StaticResource FontSizeSmall}" />
             </StackLayout>
             
             <StackLayout Grid.Column="1" Padding="15,0,0,0">

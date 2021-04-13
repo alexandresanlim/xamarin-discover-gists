@@ -92,6 +92,6 @@ namespace DiscoverGists.Models
         }
 
         [JsonIgnore, BsonIgnore]
-        public string AddedFavoritePresentation => AddedFavorite.ToString("dd MMM yy");
+        public string AddedFavoritePresentation => AddedFavorite.ToString("dd-MMM-yy");
     }
 }

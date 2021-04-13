@@ -42,7 +42,7 @@ namespace DiscoverGists.ViewModels
 
         private void ResetProps()
         {
-            LanguageColors = Helpers.LanguageColors.GetList();
+            IsBusy = false;
         }
 
         public ICommand LoadDataCommand => new DelegateCommand(async () =>
@@ -76,10 +76,12 @@ namespace DiscoverGists.ViewModels
                 return;
             }
 
-            foreach (var item in gistList)
-            {
-                item.FirstFile.ColorFromLanguage = LanguageColors?.FirstOrDefault(x => x.Language?.ToLower() == item?.FirstFile?.Language?.ToLower())?.Color ?? "#2980b9";
-            }
+            //foreach (var item in gistList)
+            //{
+            //    item.FirstFile.ColorFromLanguage = LanguageColors?.FirstOrDefault(x => x.Language?.ToLower() == item?.FirstFile?.Language?.ToLower())?.Color ?? "#2980b9";
+            //}
+
+            gistList.Select(x => x.FirstFile).ToList().SetLanguageColor();
 
             if (LastPage == 1)
                 GistList = gistList.ToObservableCollection();
@@ -168,7 +170,5 @@ namespace DiscoverGists.ViewModels
         }
 
         public int LastPage { get; set; } = 1;
-
-        public List<LanguageColors> LanguageColors { get; set; }
     }
 }

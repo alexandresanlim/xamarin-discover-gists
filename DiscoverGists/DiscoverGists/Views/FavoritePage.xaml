@@ -104,13 +104,13 @@
                                                     <controls:CustomIcon Glyph="{x:Static icons:FontAwesomeSolid.TimesCircle }" IconSize="Medium" IconColor="{DynamicResource secondary}" />
                                                 </StackLayout>
 
-                                                <StackLayout Grid.Row="1" Padding="15,0,0,15" Orientation="Horizontal" Spacing="15" VerticalOptions="FillAndExpand">
+                                                <StackLayout Grid.Row="1" Padding="15,0" Orientation="Horizontal" Spacing="15" VerticalOptions="FillAndExpand">
 
                                                     <Frame Grid.Column="0" Padding="0" BorderColor="Black" CornerRadius="50" HeightRequest="50" WidthRequest="50" IsClippedToBounds="True" HorizontalOptions="Center" VerticalOptions="Start">
                                                         <Image Source="{Binding Owner.AvatarUrl}" WidthRequest="90" HeightRequest="90" />
                                                     </Frame>
 
-                                                    <Label Text="{Binding Owner.Login}" FontSize="Subtitle" TextColor="{DynamicResource textOnPrimary}" Style="{StaticResource subTitleStyle}" VerticalOptions="Center" />
+                                                    <Label Text="{Binding Owner.Login}" FontSize="{StaticResource FontSizeMedium}" TextColor="{DynamicResource textOnPrimary}" VerticalOptions="Center" Style="{StaticResource fontSemiBold}" MaxLines="1" LineBreakMode="TailTruncation" />
 
                                                 </StackLayout>
 
@@ -122,7 +122,7 @@
                                                         <Label Text="{Binding FilesPresentation}" TextColor="{DynamicResource textOnPrimary}"/>
 
                                                         <Frame BackgroundColor="{DynamicResource secondary}" CornerRadius="30" Padding="30,10" VerticalOptions="EndAndExpand" HorizontalOptions="Start">
-                                                            <Label Text="{Binding AddedFavoritePresentation, StringFormat='Added: {0}'}" TextColor="{DynamicResource textOnSecondary}" Style="{StaticResource fontSemiBold}"/>
+                                                            <Label Text="{Binding AddedFavoritePresentation, StringFormat='Add: {0}'}" TextColor="{DynamicResource textOnSecondary}" Style="{StaticResource fontSemiBold}"/>
                                                         </Frame>
 
                                                     </StackLayout>

@@ -95,9 +95,9 @@ namespace DiscoverGists.ViewModels
             SearchPanelVisible = false;
             OriginalGistList = new List<Gist>();
             GistList = new ObservableCollection<Gist>();
-            LanguageColors = Helpers.LanguageColors.GetList();
             Skip = 0;
             EndList = false;
+            IsBusy = false;
         }
 
         private void GetListFromDataBase()
@@ -116,10 +116,7 @@ namespace DiscoverGists.ViewModels
 
             if (gistList != null && gistList.Count > 0)
             {
-                foreach (var item in gistList)
-                {
-                    item.FirstFile.ColorFromLanguage = LanguageColors?.FirstOrDefault(x => x.Language?.ToLower() == item?.FirstFile?.Language?.ToLower())?.Color ?? "#2980b9";
-                }
+                gistList.Select(x => x.FirstFile).ToList().SetLanguageColor();
 
                 if (GistList == null || GistList.Count.Equals(0))
                     GistList = gistList.ToObservableCollection();
@@ -140,8 +137,13 @@ namespace DiscoverGists.ViewModels
         {
             GistList = string.IsNullOrEmpty(text) ? OriginalGistList.ToObservableCollection() : GistDataBase.Find(x => x.Owner.Login.ToLower().Contains(text.ToLower()))?.ToObservableCollection();
 
+            GistListInEmptyCheck();
+        }
+
+        public void GistListInEmptyCheck()
+        {
             if (GistList.Count.Equals(0))
-                CollectionEmptyMsg = "Nenhum resultado encontrado 😣";
+                CollectionEmptyMsg = "Nenhum resultado encontrado :/";
         }
 
         public ICommand LoadMoreCommand => new DelegateCommand(async () =>
@@ -189,6 +191,8 @@ namespace DiscoverGists.ViewModels
             GistDataBase.Remove(gist);
 
             GistList.Remove(gist);
+
+            GistListInEmptyCheck();
         });
 
         public ICommand ShowSearchPanelCommand => new DelegateCommand(() =>
@@ -218,7 +222,5 @@ namespace DiscoverGists.ViewModels
         public int Skip { get; set; }
 
         public bool EndList { get; set; }
-
-        public List<LanguageColors> LanguageColors { get; set; }
     }
 }

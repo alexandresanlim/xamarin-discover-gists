@@ -41,14 +41,7 @@ namespace DiscoverGists.ViewModels
                 FileList = Gist.Files.Select(x => x.Value).ToList().ToObservableCollection();
 
                 if (FileList.Count > 1)
-                {
-                    var languageColors = Helpers.LanguageColors.GetList();
-
-                    foreach (var item in FileList)
-                    {
-                        item.ColorFromLanguage = !string.IsNullOrEmpty(item?.ColorFromLanguage) ? item?.ColorFromLanguage : languageColors?.FirstOrDefault(x => x.Language?.ToLower() == item?.Language?.ToLower())?.Color ?? "#2980b9";
-                    }
-                }
+                    FileList.SetLanguageColor();
 
                 LoadIsFavorite();
             }

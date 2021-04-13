@@ -1,6 +1,8 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
 
 namespace DiscoverGists.Models
@@ -30,5 +32,18 @@ namespace DiscoverGists.Models
 
         [JsonIgnore]
         public string LanguagePresentation => !string.IsNullOrEmpty(Language) ? Language : "Not found";
+    }
+
+    public static class FileExtention
+    {
+        public static void SetLanguageColor(this IList<File> files)
+        {
+            var languageColors = Helpers.LanguageColors.GetList();
+
+            foreach (var item in files)
+            {
+                item.ColorFromLanguage = !string.IsNullOrEmpty(item?.ColorFromLanguage) ? item?.ColorFromLanguage : languageColors?.FirstOrDefault(x => x.Language?.ToLower() == item?.Language?.ToLower())?.Color ?? "#2980b9";
+            }
+        }
     }
 }
