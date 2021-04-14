@@ -31,24 +31,9 @@ namespace DiscoverGists.ViewModels
             ResetProps();
 
             IsBusy = true;
-
-            //try
-            //{
-            //    //SetIsLoading(true);
-
-            //    //await Task.Delay(1000);
-
-            //    await LoadData();
-            //}
-            //catch (Exception)
-            //{
-            //    ShowDefaultErrorMsg();
-            //}
-            //finally
-            //{
-            //    //SetIsLoading(false);
-            //}
         }
+
+        #region Commands
 
         public ICommand LoadDataCommand => new DelegateCommand(async () =>
         {
@@ -66,28 +51,80 @@ namespace DiscoverGists.ViewModels
             }
         });
 
+        public ICommand LoadMoreCommand => new DelegateCommand(async () =>
+        {
+            try
+            {
+                if (IsLoad || IsBusy || EndList || SearchPanelVisible)
+                    return;
+
+                IsLoad = true;
+
+                await Task.Delay(2000);
+
+                Skip += 5;
+
+                GetListFromDataBase();
+            }
+            catch (Exception ex)
+            {
+                ex.SendToLog();
+            }
+            finally
+            {
+                IsLoad = false;
+            }
+        });
+
+        public DelegateCommand<Gist> RemoveFromFavoriteCommand => new DelegateCommand<Gist>(async (gist) =>
+        {
+            gist.RemoveOrAddGistFromFavorite();
+
+            GistList.Remove(gist);
+
+            GistListInEmptyCheck();
+        });
+
+        public ICommand ShowSearchPanelCommand => new DelegateCommand(() =>
+        {
+            SearchPanelVisible = !SearchPanelVisible;
+
+            if (!SearchPanelVisible)
+                Search();
+        });
+
+        public DelegateCommand<Gist> NavigateToDetailCommand => new DelegateCommand<Gist>(async (gist) =>
+        {
+            try
+            {
+                SetIsLoading(true);
+
+                await Task.Delay(1000);
+
+                var navigationParams = new NavigationParameters
+                {
+                    { "gist", gist }
+                };
+
+                await NavigationService.NavigateAsync(nameof(DetailPage), navigationParams);
+            }
+            catch (Exception e)
+            {
+                e.SendToLog();
+            }
+            finally
+            {
+                SetIsLoading(false);
+            }
+        });
+
+        #endregion
+
+        #region Methods
+
         private async Task LoadData()
         {
             GetListFromDataBase();
-
-            //try
-            //{
-            //    IsBusy = true;
-
-            //    await Task.Delay(1000);
-
-            //    ResetProps();
-
-            //    GetListFromDataBase();
-            //}
-            //catch (Exception e)
-            //{
-            //    ShowDefaultErrorMsg();
-            //}
-            //finally
-            //{
-            //    IsBusy = false;
-            //}
         }
 
         private void ResetProps()
@@ -135,9 +172,22 @@ namespace DiscoverGists.ViewModels
 
         public void Search(string text = "")
         {
-            GistList = string.IsNullOrEmpty(text) ? OriginalGistList.ToObservableCollection() : GistDataBase.Find(x => x.Owner.Login.ToLower().Contains(text.ToLower()))?.ToObservableCollection();
+            try
+            {
+                IsBusy = true;
 
-            GistListInEmptyCheck();
+                GistList = string.IsNullOrEmpty(text) ? OriginalGistList.ToObservableCollection() : GistDataBase.Find(x => x.Owner.Login.ToLower().Contains(text.ToLower()))?.ToObservableCollection();
+
+                GistListInEmptyCheck();
+            }
+            catch (Exception e)
+            {
+                e.SendToLog();
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
 
         public void GistListInEmptyCheck()
@@ -146,57 +196,9 @@ namespace DiscoverGists.ViewModels
                 CollectionEmptyMsg = "Nenhum resultado encontrado :/";
         }
 
-        public ICommand LoadMoreCommand => new DelegateCommand(async () =>
-        {
-            try
-            {
-                if (IsLoad || IsBusy || EndList)
-                    return;
+        #endregion
 
-                IsLoad = true;
-
-                await Task.Delay(2000);
-
-                Skip += 5;
-
-                GetListFromDataBase();
-            }
-            catch (Exception ex)
-            {
-                ex.SendToLog();
-            }
-            finally
-            {
-                IsLoad = false;
-            }
-        });
-
-        public DelegateCommand<Gist> NavigateToDetailCommand => new DelegateCommand<Gist>(async (gist) =>
-        {
-            var navigationParams = new NavigationParameters
-            {
-                { "gist", gist }
-            };
-
-            await NavigationService.NavigateAsync(nameof(DetailPage), navigationParams);
-        });
-
-        public DelegateCommand<Gist> RemoveFromFavoriteCommand => new DelegateCommand<Gist>(async (gist) =>
-        {
-            gist.RemoveOrAddGistFromFavorite();
-
-            GistList.Remove(gist);
-
-            GistListInEmptyCheck();
-        });
-
-        public ICommand ShowSearchPanelCommand => new DelegateCommand(() =>
-        {
-            SearchPanelVisible = !SearchPanelVisible;
-
-            if (!SearchPanelVisible)
-                Search();
-        });
+        #region Props
 
         private ObservableCollection<Gist> _gistList;
         public ObservableCollection<Gist> GistList
@@ -217,5 +219,7 @@ namespace DiscoverGists.ViewModels
         public int Skip { get; set; }
 
         public bool EndList { get; set; }
+
+        #endregion
     }
 }

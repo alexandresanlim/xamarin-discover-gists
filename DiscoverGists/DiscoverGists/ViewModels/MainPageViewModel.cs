@@ -40,10 +40,71 @@ namespace DiscoverGists.ViewModels
             IsBusy = true;
         }
 
-        private void ResetProps()
+        #region Commands
+
+        public ICommand LoadMoreCommand => new DelegateCommand(async () =>
         {
-            IsBusy = false;
-        }
+            try
+            {
+                if (IsLoad || IsBusy)
+                    return;
+
+                IsLoad = true;
+
+                LastPage += 1;
+
+                await GetGistListFromService();
+            }
+            catch (Exception ex)
+            {
+                ex.SendToLog();
+            }
+            finally
+            {
+                IsLoad = false;
+            }
+        });
+
+        public ICommand SettingsCommand => new Command(async () =>
+        {
+            var preferences = new List<Acr.UserDialogs.ActionSheetOption>
+            {
+                new Acr.UserDialogs.ActionSheetOption(PreferenceService.Theme == "light" ? "Dark Mode" : "Light Mode", () =>
+                {
+                    PreferenceService.Theme = PreferenceService.Theme == "light" ? "dark" : "light";
+
+                    App.SetThemeColorsByPreference();
+
+                    GistList.SetIsFavorite();
+                })
+            };
+
+            DialogService.ActionSheet(new Acr.UserDialogs.ActionSheetConfig
+            {
+                Title = "Preferências",
+                Options = preferences,
+                Cancel = new Acr.UserDialogs.ActionSheetOption("Cancelar", () =>
+                {
+                    return;
+                })
+            });
+        });
+
+        public DelegateCommand<Gist> AddFavoriteCommand => new DelegateCommand<Gist>((gist) =>
+        {
+            try
+            {
+                gist.RemoveOrAddGistFromFavorite();
+            }
+            catch (Exception ex)
+            {
+                ex.SendToLog();
+            }
+            finally
+            {
+                SetEvent("Add favorite");
+            }
+        });
 
         public ICommand LoadDataCommand => new DelegateCommand(async () =>
         {
@@ -62,6 +123,58 @@ namespace DiscoverGists.ViewModels
                 SetEvent("Load app");
             }
         });
+
+        public ICommand NavigateToFavoriteCommand => new DelegateCommand(async () =>
+        {
+            try
+            {
+                SetIsLoading(true);
+
+                await Task.Delay(1000);
+
+                await NavigationService.NavigateAsync(nameof(FavoritePage));
+            }
+            catch (Exception e)
+            {
+                e.SendToLog();
+            }
+            finally
+            {
+                SetIsLoading(false);
+            }
+        });
+
+        public DelegateCommand<Gist> NavigateToDetailCommand => new DelegateCommand<Gist>(async (gist) =>
+        {
+            try
+            {
+                SetIsLoading(true);
+
+                await Task.Delay(1000);
+
+                var navigationParams = new NavigationParameters
+                {
+                    { "gist", gist }
+                };
+
+                await NavigationService.NavigateAsync(nameof(DetailPage), navigationParams);
+            }
+            catch (Exception e)
+            {
+                e.SendToLog();
+            }
+            finally
+            {
+                SetIsLoading(false);
+            }
+        });
+
+        #endregion
+
+        private void ResetProps()
+        {
+            IsBusy = false;
+        }
 
         private async Task LoadData()
         {
@@ -93,85 +206,6 @@ namespace DiscoverGists.ViewModels
                 }
             }
         }
-
-        public ICommand LoadMoreCommand => new DelegateCommand(async () =>
-        {
-            try
-            {
-                if (IsLoad || IsBusy)
-                    return;
-
-                IsLoad = true;
-
-                LastPage += 1;
-
-                await GetGistListFromService();
-            }
-            catch (Exception ex)
-            {
-                ex.SendToLog();
-            }
-            finally
-            {
-                IsLoad = false;
-            }
-        });
-
-        public ICommand NavigateToFavoriteCommand => new DelegateCommand(async () =>
-        {
-            await NavigationService.NavigateAsync(nameof(FavoritePage));
-        });
-
-        public ICommand SettingsCommand => new Command(async () =>
-        {
-            var preferences = new List<Acr.UserDialogs.ActionSheetOption>
-            {
-                new Acr.UserDialogs.ActionSheetOption(PreferenceService.Theme == "light" ? "Dark Mode" : "Light Mode", () =>
-                {
-                    PreferenceService.Theme = PreferenceService.Theme == "light" ? "dark" : "light";
-
-                    App.SetThemeColorsByPreference();
-
-                    GistList.SetIsFavorite();
-                })
-            };
-
-            DialogService.ActionSheet(new Acr.UserDialogs.ActionSheetConfig
-            {
-                Title = "Preferências",
-                Options = preferences,
-                Cancel = new Acr.UserDialogs.ActionSheetOption("Cancelar", () =>
-                {
-                    return;
-                })
-            });
-        });
-
-        public DelegateCommand<Gist> NavigateToDetailCommand => new DelegateCommand<Gist>(async (gist) =>
-        {
-            var navigationParams = new NavigationParameters
-            {
-                { "gist", gist }
-            };
-
-            await NavigationService.NavigateAsync(nameof(DetailPage), navigationParams);
-        });
-
-        public DelegateCommand<Gist> AddFavoriteCommand => new DelegateCommand<Gist>((gist) =>
-        {
-            try
-            {
-                gist.RemoveOrAddGistFromFavorite();
-            }
-            catch (Exception ex)
-            {
-                ex.SendToLog();
-            }
-            finally
-            {
-                SetEvent("Add favorite");
-            }
-        });
 
         private ObservableCollection<Gist> _gistList;
         public ObservableCollection<Gist> GistList

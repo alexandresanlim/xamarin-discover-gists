@@ -33,13 +33,18 @@ namespace DiscoverGists.Views
                     entrySearch.Focus();
 
                 else
+                {
+                    if (!string.IsNullOrEmpty(entrySearch?.Text))
+                        entrySearch.Text = "";
+
                     entrySearch.Unfocus();
+                }
             }
         }
 
         private void entrySearch_TextChanged(object sender, TextChangedEventArgs e)
         {
-            VM.Search(e.NewTextValue);
+            VM.Search(e?.NewTextValue);
         }
     }
 }
