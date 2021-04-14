@@ -33,7 +33,10 @@ namespace DiscoverGists.ViewModels
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             if (parameters.GetNavigationMode() == NavigationMode.Back && GistList?.Count > 0)
+            {
+                GistList.SetIsFavorite();
                 return;
+            }
 
             ResetProps();
 
