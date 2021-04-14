@@ -125,10 +125,10 @@ namespace DiscoverGists.Models
                     return "";
 
                 var presentationReturn =
-                    "Type: " + FirstFile.Type + "\n" +
-                    "Name: " + FirstFile.Filename + "\n" +
-                    "Size: " + FirstFile.Size + "\n" +
-                    "Language: " + FirstFile.LanguagePresentation + "\n";
+                    "Tipo: " + FirstFile.Type + "\n" +
+                    "Nome: " + FirstFile.Filename + "\n" +
+                    "Tamanho: " + FirstFile.Size + "\n" +
+                    "Linguagem: " + FirstFile.LanguagePresentation + "\n";
 
                 return presentationReturn;
             }

@@ -31,7 +31,7 @@ namespace DiscoverGists.Models
         public string ColorFromLanguage { get; set; }
 
         [JsonIgnore]
-        public string LanguagePresentation => !string.IsNullOrEmpty(Language) ? Language : "Not found";
+        public string LanguagePresentation => !string.IsNullOrEmpty(Language) ? Language : "Não encontrada";
     }
 
     public static class FileExtention
