@@ -4,10 +4,16 @@
  
  <p align='center'>Veja os principais gists e adicione aos seus favoritos, para ver mesmo offline.</p>
  
+   
+ 
+ 
  <p align='center'> 
    Download:
 </p>
  <p align='center'> <a href='https://install.appcenter.ms/users/alexandre.sanlim/apps/discovergists/distribution_groups/public'><img src="https://img.shields.io/badge/Android_Apk-3DDC84?style=for-the-badge&logo=android&logoColor=white" /></a>
+</p>
+
+<p align='center'> <a href='https://install.appcenter.ms/users/alexandre.sanlim/apps/discovergists/distribution_groups/public'><img width='250' src="https://github.com/alexandresanlim/DiscoverGists/blob/master/DiscoverGists/DiscoverGists/Src/Screenshots/Android/animation.gif?raw=true" /></a>
 </p>
  
  
