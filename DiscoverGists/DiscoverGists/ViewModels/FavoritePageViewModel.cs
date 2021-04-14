@@ -174,8 +174,6 @@ namespace DiscoverGists.ViewModels
         {
             try
             {
-                IsBusy = true;
-
                 GistList = string.IsNullOrEmpty(text) ? OriginalGistList.ToObservableCollection() : GistDataBase.Find(x => x.Owner.Login.ToLower().Contains(text.ToLower()))?.ToObservableCollection();
 
                 GistListInEmptyCheck();
@@ -183,10 +181,6 @@ namespace DiscoverGists.ViewModels
             catch (Exception e)
             {
                 e.SendToLog();
-            }
-            finally
-            {
-                IsBusy = false;
             }
         }
 
