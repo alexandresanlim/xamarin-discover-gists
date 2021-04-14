@@ -133,7 +133,7 @@ namespace DiscoverGists.ViewModels
             {
                 SetIsLoading(true);
 
-                await Task.Delay(1000);
+                await Task.Delay(500);
 
                 await NavigationService.NavigateAsync(nameof(FavoritePage));
             }
@@ -153,7 +153,7 @@ namespace DiscoverGists.ViewModels
             {
                 SetIsLoading(true);
 
-                await Task.Delay(1000);
+                await Task.Delay(500);
 
                 var navigationParams = new NavigationParameters
                 {

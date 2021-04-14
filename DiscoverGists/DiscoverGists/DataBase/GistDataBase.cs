@@ -16,7 +16,13 @@ namespace DiscoverGists.DataBase
         {
             try
             {
-                return ItemCollection.FindAll().Skip(skip).Take(5).ToList();
+                return ItemCollection
+                    .FindAll()
+                    .Where(x => !string.IsNullOrEmpty(x?.Owner?.Login))
+                    .OrderBy(x => x.Owner.Login)
+                    .Skip(skip)
+                    .Take(5)
+                    .ToList();
             }
             catch (Exception)
             {

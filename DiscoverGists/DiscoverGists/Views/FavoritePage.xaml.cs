@@ -16,18 +16,21 @@ namespace DiscoverGists.Views
             VM = (FavoritePageViewModel)BindingContext;
         }
 
-        protected override bool OnBackButtonPressed()
+        protected override void OnDisappearing()
         {
             IsBack = true;
 
-            return base.OnBackButtonPressed();
+            base.OnDisappearing();
         }
 
         private void StackLayout_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
+            if (IsBack)
+                return;
+
             var searchPanel = (StackLayout)sender;
 
-            if (e.PropertyName.Equals(nameof(StackLayout.IsVisible)) && !IsBack)
+            if (e.PropertyName.Equals(nameof(StackLayout.IsVisible)))
             {
                 if (searchPanel.IsVisible)
                     entrySearch.Focus();
