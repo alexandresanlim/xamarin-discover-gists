@@ -22,9 +22,9 @@
         <Color x:Key="backgroundTransparent">#99000000</Color>
         <Color x:Key="textOnBackgroundTransparent">#ffffff</Color>
 
-        <x:Double x:Key="FontSizeTitle">25</x:Double>
-        <x:Double x:Key="FontSizeMedium">20</x:Double>
-        <x:Double x:Key="FontSizeSmall">15</x:Double>
+        <x:Double x:Key="FontSizeTitle">23</x:Double>
+        <x:Double x:Key="FontSizeMedium">18</x:Double>
+        <x:Double x:Key="FontSizeSmall">13</x:Double>
         <x:Double x:Key="FontSizeMicro">10</x:Double>
 
         <Style TargetType="Label">
@@ -45,6 +45,10 @@
 
         <Style TargetType="RefreshView">
             <Setter Property="RefreshColor" Value="{DynamicResource secondary}"/>
+        </Style>
+
+        <Style TargetType="Frame">
+            <Setter Property="HasShadow" Value="False"/>
         </Style>
 
         <ResourceDictionary>

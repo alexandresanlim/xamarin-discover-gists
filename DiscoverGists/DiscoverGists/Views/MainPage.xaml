@@ -24,6 +24,11 @@
             </Grid.Background>
 
             <StackLayout Grid.Column="0" Spacing="0">
+                <StackLayout.Padding>
+                    <OnPlatform x:TypeArguments="Thickness">
+                        <On Platform="iOS" Value="0,15,0,0" />
+                    </OnPlatform>
+                </StackLayout.Padding>
                 <Label Text="Bem Vindo," TextColor="{DynamicResource textOnSecondary}" Style="{StaticResource titleStyle}"/>
                 <Label Text="Encontre Gists e salve os seus favoritos!" TextColor="{DynamicResource textOnSecondary}" FontSize="{StaticResource FontSizeSmall}" />
             </StackLayout>
@@ -73,7 +78,7 @@
 
                                                     <Grid ColumnDefinitions="auto,*" ColumnSpacing="15" Padding="10" HorizontalOptions="FillAndExpand">
 
-                                                        <Frame Grid.Column="0" Padding="0" BorderColor="Black" CornerRadius="50" HeightRequest="60" WidthRequest="60" IsClippedToBounds="True" HorizontalOptions="Center" VerticalOptions="Start">
+                                                        <Frame Grid.Column="0" Padding="0" CornerRadius="30" HeightRequest="60" WidthRequest="60" IsClippedToBounds="True" HorizontalOptions="Center" VerticalOptions="Start">
                                                             <Image Source="{Binding Owner.AvatarUrl}" WidthRequest="100" HeightRequest="100" />
                                                         </Frame>
 
@@ -131,7 +136,13 @@
                 
             </Grid>
 
-            <Frame BackgroundColor="{DynamicResource secondary}" Padding="30,12" CornerRadius="30" VerticalOptions="End" HorizontalOptions="End" Margin="5">
+            <Frame BackgroundColor="{DynamicResource secondary}" Padding="30,12" CornerRadius="23" VerticalOptions="End" HorizontalOptions="End">
+                <Frame.Margin>
+                    <OnPlatform x:TypeArguments="Thickness">
+                        <On Platform="iOS" Value="5,5,5,30" />
+                        <On Platform="Android, UWP" Value="5" />
+                    </OnPlatform>
+                </Frame.Margin>
                 <Frame.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding NavigateToFavoriteCommand}" />
                 </Frame.GestureRecognizers>

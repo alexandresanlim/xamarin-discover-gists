@@ -13,7 +13,7 @@
 
 
             <Style x:Key="titleMenuStyle" TargetType="Label">
-                <Setter Property="FontSize" Value="Micro" />
+                <Setter Property="FontSize" Value="{StaticResource FontSizeMicro}" />
                 <Setter Property="TextColor" Value="{DynamicResource textOnSecondary}"/>
                 <Setter Property="FontFamily" Value="FontPoppinsSemiBold"/>
                 <Setter Property="HorizontalOptions" Value="Center"/>
